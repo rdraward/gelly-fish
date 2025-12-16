@@ -63,9 +63,87 @@ export default function () {
   );
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <style>{`
-        :root { --gelly: #9260d2; }
+        :root {
+          --gelly: #9260d2;
+          --gelly-ink: color-mix(in oklab, var(--gelly), black 55%);
+          --gelly-hi: color-mix(in oklab, var(--gelly), white 22%);
+          --gelly-mid: color-mix(in oklab, var(--gelly), white 10%);
+          --gelly-shadow: color-mix(in oklab, var(--gelly), black 55%);
+        }
+
+        /* Global gelly background is now in web/app.css — keep page styles local to the hero. */
+        .gelly-page {
+          color: rgba(255,255,255,0.92);
+          position: relative;
+        }
+
+        /* Gelly “blob” behind hero */
+        .gelly-blob {
+          position: absolute;
+          width: 560px;
+          height: 560px;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -55%);
+          background: radial-gradient(closest-side,
+            rgba(255,255,255,0.20) 0%,
+            rgba(146,96,210,0.55) 55%,
+            rgba(146,96,210,0.18) 100%);
+          border-radius: 44% 56% 52% 48% / 42% 40% 60% 58%;
+          filter: blur(0.5px) saturate(1.12);
+          opacity: 0.9;
+          animation: gelly-blob 3.8s ease-in-out infinite;
+          z-index: 0;
+          box-shadow:
+            0 40px 120px rgba(0,0,0,0.55),
+            0 18px 70px rgba(146,96,210,0.38);
+        }
+
+        @keyframes gelly-blob {
+          0%   { border-radius: 44% 56% 52% 48% / 42% 40% 60% 58%; transform: translate(-50%, -55%) rotate(0deg) scale(1); }
+          30%  { border-radius: 58% 42% 56% 44% / 52% 60% 40% 48%; transform: translate(-50%, -56%) rotate(2deg) scale(1.03); }
+          60%  { border-radius: 46% 54% 40% 60% / 55% 45% 55% 45%; transform: translate(-50%, -54%) rotate(-1.5deg) scale(0.99); }
+          100% { border-radius: 44% 56% 52% 48% / 42% 40% 60% 58%; transform: translate(-50%, -55%) rotate(0deg) scale(1); }
+        }
+
+        .gelly-hero {
+          position: relative;
+          z-index: 1;
+        }
+
+        .gelly-title {
+          text-shadow:
+            0 2px 0 rgba(0,0,0,0.18),
+            0 14px 34px rgba(0,0,0,0.45);
+          letter-spacing: -0.02em;
+          animation: gelly-bob 1.15s cubic-bezier(.2,.9,.2,1) infinite;
+          transform-origin: 50% 80%;
+        }
+
+        .gelly-subtitle {
+          color: rgba(255,255,255,0.82);
+          text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+          animation: gelly-wiggle-soft 1.9s ease-in-out infinite;
+          transform-origin: 50% 50%;
+        }
+
+        @keyframes gelly-bob {
+          0%   { transform: translateY(0) rotate(0deg) scale(1); }
+          22%  { transform: translateY(-6px) rotate(-1deg) scale(1.01); }
+          50%  { transform: translateY(1px) rotate(1.2deg) scale(0.995); }
+          78%  { transform: translateY(-4px) rotate(-0.7deg) scale(1.006); }
+          100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        @keyframes gelly-wiggle-soft {
+          0%   { transform: translateY(0) rotate(0deg); }
+          25%  { transform: translateY(-2px) rotate(0.7deg); }
+          55%  { transform: translateY(1px) rotate(-0.9deg); }
+          80%  { transform: translateY(-1px) rotate(0.5deg); }
+          100% { transform: translateY(0) rotate(0deg); }
+        }
 
         .gelly-cta {
           position: relative;
@@ -92,6 +170,7 @@ export default function () {
           transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
           user-select: none;
           -webkit-tap-highlight-color: transparent;
+          animation: gelly-idle 1.7s ease-in-out infinite;
         }
 
         .gelly-cta::before {
@@ -128,6 +207,14 @@ export default function () {
           100% { border-radius: 16px 20px 16px 22px; transform: translateY(-2px) rotate(0deg) translateX(0); }
         }
 
+        /* Always-on subtle life, overridden by hover/press */
+        @keyframes gelly-idle {
+          0%   { transform: translateY(-2px) rotate(0deg) scale(1); filter: saturate(1); }
+          30%  { transform: translateY(-4px) rotate(-0.6deg) scale(1.01); filter: saturate(1.08); }
+          60%  { transform: translateY(-1px) rotate(0.8deg) scale(0.995); filter: saturate(1.03); }
+          100% { transform: translateY(-2px) rotate(0deg) scale(1); filter: saturate(1); }
+        }
+
         .gelly-cta:active {
           transform: translateY(8px) scaleY(0.92) scaleX(0.98);
           box-shadow:
@@ -159,6 +246,7 @@ export default function () {
         }
 
         .gelly-cta--pressed:hover { animation: none; }
+        .gelly-cta--pressed { filter: saturate(1.25); }
 
         .gelly-cta--pressed .gelly-cta__label {
           opacity: 0;
@@ -179,6 +267,7 @@ export default function () {
 
         @media (prefers-reduced-motion: reduce) {
           .gelly-cta, .gelly-cta:hover, .gelly-cta--pressed { animation: none !important; transition: none !important; }
+          .gelly-title, .gelly-subtitle, .gelly-page::before, .gelly-page::after, .gelly-blob { animation: none !important; }
           .gelly-cta__label, .gelly-cta__jelly { transition: none !important; }
           .gelly-wipe, .gelly-wipe__jelly { animation: none !important; transition: none !important; }
         }
@@ -241,11 +330,14 @@ export default function () {
         </div>
       )}
       {/* Hero Section */}
-      <section className="min-h-[60vh] flex items-center justify-center">
-        <div className="mx-auto max-w-4xl px-8 text-center flex flex-col gap-6">
-          <h1 className="text-6xl font-bold tracking-tight text-center">👋 Hey, Developer!</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            ARE YOU READY TO GELLY?
+      <section className="gelly-page flex items-center justify-center min-h-[100dvh]">
+        <div className="gelly-blob" aria-hidden="true" />
+        <div className="gelly-hero mx-auto max-w-4xl px-8 text-center flex flex-col gap-6 min-h-[100dvh] items-center justify-center">
+          <h1 className="gelly-title text-6xl md:text-7xl font-extrabold tracking-tight text-center">
+            Hey, Developer.
+          </h1>
+          <p className="gelly-subtitle text-xl md:text-2xl max-w-2xl mx-auto">
+            <span className="font-semibold">Gelly purple</span> energy. Constant jiggle. Maximum bounce.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button asChild className="w-auto bg-transparent p-0 hover:bg-transparent">

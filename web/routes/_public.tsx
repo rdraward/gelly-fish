@@ -10,7 +10,7 @@
 // To extend: update the Navigation component or replace footer content as needed.
 // --------------------------------------------------------------------------------------
 
-import { Link, Outlet, useOutletContext } from "react-router";
+import { Link, Outlet, useLocation, useOutletContext } from "react-router";
 import { Button } from "@/components/ui/button";
 import { UserIcon } from "@/components/shared/UserIcon";
 import { Navigation } from "@/components/public/nav";
@@ -32,10 +32,12 @@ export default function ({ loaderData }: Route.ComponentProps) {
   const { user } = loaderData;
 
   const context = useOutletContext<RootOutletContext>();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <nav className="border-b shrink-0">
+      <nav className={`shrink-0 ${isHome ? "border-b border-white/10 bg-transparent backdrop-blur supports-[backdrop-filter]:bg-black/10" : "border-b"}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Navigation />
@@ -62,16 +64,22 @@ export default function ({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </nav>
-      <main className="flex-1 bg-muted/20 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-0">
+      <main className={`flex-1 overflow-hidden ${isHome ? "bg-transparent" : "bg-muted/20"}`}>
+        {isHome ? (
           <Outlet context={context} />
-        </div>
+        ) : (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-0">
+            <Outlet context={context} />
+          </div>
+        )}
       </main>
-      <footer className="bg-gray-50 border-t shrink-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <p className="text-sm text-gray-500">© {new Date().getFullYear()} Your Company. All rights reserved.</p>
-        </div>
-      </footer>
+      {!isHome && (
+        <footer className="bg-gray-50 border-t shrink-0">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <p className="text-sm text-gray-500">© {new Date().getFullYear()} Your Company. All rights reserved.</p>
+          </div>
+        </footer>
+      )}
     </div>
   );
 }

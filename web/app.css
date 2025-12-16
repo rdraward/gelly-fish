@@ -132,3 +132,73 @@ body,
     @apply font-sans antialiased;
   }
 }
+
+/* --------------------------------------------------------------------------------------
+   Gelly global background (applies to every page)
+   -------------------------------------------------------------------------------------- */
+
+body {
+  /* Keep shadcn/tailwind theme variables intact; just paint a global gelly world behind it. */
+  background:
+    radial-gradient(900px 700px at 20% 10%,
+      color-mix(in oklab, #9260d2, white 18%) 0%,
+      rgba(146, 96, 210, 0.18) 35%,
+      transparent 70%),
+    radial-gradient(800px 650px at 80% 15%,
+      rgba(146, 96, 210, 0.22) 0%,
+      rgba(146, 96, 210, 0.10) 35%,
+      transparent 72%),
+    radial-gradient(900px 750px at 55% 85%,
+      rgba(146, 96, 210, 0.22) 0%,
+      rgba(146, 96, 210, 0.08) 40%,
+      transparent 75%),
+    linear-gradient(180deg,
+      color-mix(in oklab, #9260d2, black 12%) 0%,
+      color-mix(in oklab, #9260d2, black 18%) 40%,
+      color-mix(in oklab, #9260d2, black 22%) 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(closest-side at 30% 30%, rgba(255,255,255,0.08), transparent 70%),
+    radial-gradient(closest-side at 70% 40%, rgba(255,255,255,0.07), transparent 72%),
+    radial-gradient(closest-side at 45% 80%, rgba(255,255,255,0.06), transparent 70%);
+  filter: blur(2px);
+  opacity: 0.95;
+  transform-origin: center;
+  animation: gelly-float 6.5s ease-in-out infinite;
+}
+
+body::after {
+  opacity: 0.75;
+  filter: blur(10px);
+  animation-duration: 9s;
+  animation-direction: reverse;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes gelly-float {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  35%  { transform: translate3d(1.2%, -1.4%, 0) rotate(1.2deg) scale(1.03); }
+  70%  { transform: translate3d(-1.1%, 1.3%, 0) rotate(-1deg) scale(0.99); }
+  100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none !important;
+  }
+}
