@@ -39,15 +39,45 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
   const [isRunning, setIsRunning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
+  const unwrapSingleValue = (value: unknown): unknown => {
+    if (value == null) return value;
+    if (Array.isArray(value) && value.length === 1) return value[0];
+    if (typeof value === "object") {
+      const entries = Object.entries(value as Record<string, unknown>);
+      if (entries.length === 1) return entries[0]![1];
+    }
+    return value;
+  };
+
+  const parseExpectedValue = (expected: string): unknown => {
+    const trimmed = expected.trim();
+
+    // Try JSON first (lets you store expected outputs as JSON objects/arrays too)
+    try {
+      return JSON.parse(trimmed);
+    } catch {
+      // fall through
+    }
+
+    // Handle "key: value" style expected outputs by comparing only the value
+    const firstColon = trimmed.indexOf(":");
+    if (firstColon !== -1) {
+      return trimmed.slice(firstColon + 1).trim();
+    }
+
+    return trimmed;
+  };
+
   const normalizeForCompare = (value: unknown) => {
+    const unwrapped = unwrapSingleValue(value);
     const str =
-      typeof value === "string"
-        ? value
-        : value == null
+      typeof unwrapped === "string"
+        ? unwrapped
+        : unwrapped == null
           ? ""
-          : typeof value === "object"
-            ? JSON.stringify(value, null, 2)
-            : String(value);
+          : typeof unwrapped === "object"
+            ? JSON.stringify(unwrapped, null, 2)
+            : String(unwrapped);
 
     return (
       str
@@ -68,11 +98,13 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
 
     try {
       const response = await api.view(gellyCode);
-      const outputText = normalizeForCompare(response);
-      setQueryOutput(outputText);
+      // Display: keep JSON (nice for debugging), but grade on values only
+      const displayText =
+        typeof response === "string" ? response : response == null ? "" : JSON.stringify(response, null, 2);
+      setQueryOutput(displayText);
 
       const queryMatchesSolution = normalizeForCompare(gellyCode) === normalizeForCompare(challenge.solution);
-      const outputMatchesExpected = outputText === normalizeForCompare(challenge.expectedOutput);
+      const outputMatchesExpected = normalizeForCompare(response) === normalizeForCompare(parseExpectedValue(challenge.expectedOutput));
       const passed = queryMatchesSolution || outputMatchesExpected;
 
       setIsComplete(passed);
