@@ -73,13 +73,6 @@ export default function ({ loaderData }: Route.ComponentProps) {
           </div>
         )}
       </main>
-      {!isHome && (
-        <footer className="bg-gray-50 border-t shrink-0">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} Your Company. All rights reserved.</p>
-          </div>
-        </footer>
-      )}
     </div>
   );
 }

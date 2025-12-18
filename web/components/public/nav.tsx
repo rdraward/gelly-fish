@@ -9,7 +9,7 @@
 //   - DesktopNav: Horizontal menu for larger screens.
 // --------------------------------------------------------------------------------------
 
-import { Link } from "react-router";
+import { Link, useMatches } from "react-router";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { NavDrawer } from "@/components/shared/NavDrawer";
 import { GellyLogo } from "@/components/shared/GellyLogo";
+import { NumberedCircle } from "@/components/shared/NumberedCircle";
 
 interface NavItem {
   type: "item";
@@ -52,17 +53,48 @@ type NavItems = (NavItem | NavSection)[];
 const navigationItems: NavItems = [];
 
 // Root navigation bar: logo, mobile, and desktop nav
-export const Navigation = () => (
-  <div className="flex items-center gap-2">
-    <MobileNav />
-    <div className="flex-shrink-0">
-      <Link to="/" className="flex items-center" aria-label="Home">
-        <GellyLogo height={32} className="block" />
-      </Link>
+export const Navigation = () => {
+  const matches = useMatches();
+  
+  // Get challenge data from the challenge route if we're on a challenge page
+  const challengeMatch = matches.find((match: any) => match.pathname?.startsWith("/challenge/"));
+  const challengeData = challengeMatch?.data as { 
+    levels?: Array<{ id: string; number: number }>; 
+    challenge?: { id: string } 
+  } | undefined;
+  const levels = challengeData?.levels;
+  const currentChallengeId = challengeData?.challenge?.id;
+  const isChallengePage = !!levels && levels.length > 0;
+
+  return (
+    <div className="flex items-center gap-2 min-w-0 flex-1">
+      <MobileNav />
+      <div className="flex-shrink-0">
+        <Link to="/" className="flex items-center" aria-label="Home">
+          <GellyLogo height={32} className="block" />
+        </Link>
+      </div>
+      {isChallengePage && (
+        <nav className="flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1 ml-4">
+          {levels.map((lvl) => {
+            const isActive = lvl.id === currentChallengeId;
+            return (
+              <Link
+                key={lvl.id}
+                to={`/challenge/${lvl.id}`}
+                aria-current={isActive ? "page" : undefined}
+                className="inline-block shrink-0"
+              >
+                <NumberedCircle number={lvl.number} isActive={isActive} />
+              </Link>
+            );
+          })}
+        </nav>
+      )}
+      <DesktopNav />
     </div>
-    <DesktopNav />
-  </div>
-);
+  );
+};
 
 // Mobile hamburger menu, uses Sheet for slide-out drawer
 const MobileNav = () => {

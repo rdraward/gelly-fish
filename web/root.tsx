@@ -10,7 +10,12 @@ import type { Route } from "./+types/root";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-export const links = () => [];
+export const links = () => [
+  {
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap",
+  },
+];
 
 export const meta = () => [
   { charset: "utf-8" },

@@ -1,18 +1,25 @@
 /**
  * Gelly Logo Component
  * Shows the full Gelly logo in a white circle for navigation use.
+ * Optionally displays a number when provided.
  */
 
 interface GellyLogoProps {
   className?: string;
   height?: number;
+  number?: number;
+  hideCircle?: boolean;
 }
 
-export const GellyLogo = ({ className = "", height = 32 }: GellyLogoProps) => {
+export const GellyLogo = ({ className = "", height = 32, number, hideCircle = false }: GellyLogoProps) => {
   const size = height;
   const padding = size * 0.15; // 15% padding around the logo
   const circleRadius = size / 2;
   const logoSize = size - padding * 2;
+  // Use smaller font size when circle is hidden so number fits in the logo
+  const fontSize = hideCircle ? size * 0.25 : size * 0.5;
+  // Position number in the dome top area of the logo
+  const numberY = hideCircle ? size * 0.32 : size / 2;
 
   return (
     <svg
@@ -25,7 +32,9 @@ export const GellyLogo = ({ className = "", height = 32 }: GellyLogoProps) => {
       style={{ display: "block" }}
     >
       {/* White circle background */}
-      <circle cx={circleRadius} cy={circleRadius} r={circleRadius} fill="white" />
+      {!hideCircle && (
+        <circle cx={circleRadius} cy={circleRadius} r={circleRadius} fill="white" />
+      )}
       
       {/* Gelly logo - full logo centered */}
       <g transform={`translate(${padding}, ${padding}) scale(${logoSize / 16})`}>
@@ -34,6 +43,21 @@ export const GellyLogo = ({ className = "", height = 32 }: GellyLogoProps) => {
           fill="#9260d2"
         />
       </g>
+      
+      {/* Number - displayed when number prop is provided */}
+      {number !== undefined && (
+        <text
+          x={size / 2}
+          y={numberY}
+          fontSize={fontSize}
+          fill="white"
+          fontWeight="bold"
+          textAnchor="middle"
+          dominantBaseline="central"
+        >
+          {number}
+        </text>
+      )}
     </svg>
   );
 };

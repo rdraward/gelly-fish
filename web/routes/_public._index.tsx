@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { api } from "@/api";
 
 export default function () {
   const navigate = useNavigate();
@@ -12,8 +13,18 @@ export default function () {
     if (phase !== "pressed") return;
 
     // Navigate after the logo expansion completes - add small delay to ensure animation finishes
-    const navT = window.setTimeout(() => {
-      navigate("/tutorial");
+    const navT = window.setTimeout(async () => {
+      try {
+        const challenges = await api.challenge.findMany({
+          sort: { createdAt: "Ascending" },
+          first: 1,
+        });
+        if (challenges.length > 0) {
+          navigate(`/challenge/${challenges[0].id}`);
+        }
+      } catch (error) {
+        console.error("Failed to fetch first challenge:", error);
+      }
     }, EXPANSION_DURATION_MS + 50);
     
     return () => {

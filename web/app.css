@@ -131,7 +131,8 @@ body,
 
 @layer base {
   body {
-    @apply font-sans antialiased;
+    font-family: "Inconsolata", monospace;
+    @apply antialiased;
   }
 }
 

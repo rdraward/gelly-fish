@@ -1,6 +1,6 @@
 import { TutorialView } from "@/components/tutorial/TutorialView";
 import { useParams } from "react-router";
-import type { Route } from "./+types/_public.tutorial.$challengeId";
+import type { Route } from "./+types/_public.challenge.$challengeId";
 
 export const loader = async ({ params, context }: Route.LoaderArgs) => {
   const { challengeId } = params;
@@ -47,21 +47,23 @@ export default function TutorialChallenge({ loaderData }: Route.ComponentProps) 
   const challengeId = params.challengeId;
 
   return (
-    <div className="h-full overflow-hidden">
-      <TutorialView
-        key={challenge.id}
-        challenge={{
-          id: challenge.id,
-          prompt: challenge.prompt,
-          hint: challenge.hint,
-          solution: challenge.solution,
-          expectedOutput: challenge.expectedOutput,
-        }}
-        challengeNumber={challengeNumber}
-        totalChallenges={totalChallenges}
-        levels={levels}
-        user={user}
-      />
+    <div className="h-full overflow-hidden flex flex-col">
+      <div className="flex-1 overflow-hidden">
+        <TutorialView
+          key={challenge.id}
+          challenge={{
+            id: challenge.id,
+            prompt: challenge.prompt,
+            hint: challenge.hint,
+            solution: challenge.solution,
+            expectedOutput: challenge.expectedOutput,
+          }}
+          challengeNumber={challengeNumber}
+          totalChallenges={totalChallenges}
+          levels={levels}
+          user={user}
+        />
+      </div>
     </div>
   );
 }
