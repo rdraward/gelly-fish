@@ -25,7 +25,7 @@ export default function () {
       } catch (error) {
         console.error("Failed to fetch first challenge:", error);
       }
-    }, EXPANSION_DURATION_MS - 150);
+    }, EXPANSION_DURATION_MS - 250);
 
     return () => {
       window.clearTimeout(navT);
