@@ -59,6 +59,9 @@ export const permissions: GadgetPermissions = {
           },
         },
       },
+      actions: {
+        dupe: true,
+      },
     },
     unauthenticated: {
       storageKey: "unauthenticated",

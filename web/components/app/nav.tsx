@@ -132,7 +132,7 @@ export const Navigation = ({ onLinkClick }: { onLinkClick?: () => void }) => {
 
   return (
     <>
-      <div className="h-16 flex items-center px-6 border-b gap-4">
+      <div className="h-16 flex items-center px-64 border-b gap-4">
         <Link to="/" className="flex items-center shrink-0" onClick={onLinkClick}>
           <GellyLogo height={36} />
         </Link>

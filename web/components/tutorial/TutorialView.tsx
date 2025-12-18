@@ -10,6 +10,7 @@ interface Challenge {
   id: string;
   title: string;
   prompt: string;
+  backstory: string;
   hint: string;
   hintLink: string;
   solution: string;
@@ -167,7 +168,10 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
             <div className="h-full pr-4">
               <div className="space-y-4 text-base leading-relaxed">
                 <div className="prose prose-sm dark:prose-invert max-w-none">
-                  <p className="text-foreground whitespace-pre-wrap line-clamp-10">{challenge.prompt}</p>
+                  {challenge.backstory && (
+                    <p className="text-foreground whitespace-pre-wrap mb-4">{challenge.backstory}</p>
+                  )}
+                  <p className="text-foreground whitespace-pre-wrap font-bold">{challenge.prompt}</p>
                 </div>
               </div>
             </div>
