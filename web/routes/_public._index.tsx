@@ -286,12 +286,19 @@ export default function () {
 
         .gelly-bg-row {
           display: flex;
-          gap: 4rem;
+          gap: 0;
           width: max-content;
           padding: 2rem 0;
           will-change: transform;
           backface-visibility: hidden;
           -webkit-backface-visibility: hidden;
+        }
+
+        .gelly-bg-row-set {
+          display: flex;
+          gap: 4rem;
+          padding-left: 4rem;
+          flex-shrink: 0;
         }
 
         .gelly-bg-logo {
@@ -417,17 +424,21 @@ export default function () {
                 animationDuration: `${35 + rowIndex * 2}s`,
               }}
             >
-              {Array.from({ length: 20 }).map((_, logoIndex) => (
-                <div key={logoIndex} className="gelly-bg-logo">
-                  {backgroundLogo}
-                </div>
-              ))}
+              <div className="gelly-bg-row-set">
+                {Array.from({ length: 20 }).map((_, logoIndex) => (
+                  <div key={logoIndex} className="gelly-bg-logo">
+                    {backgroundLogo}
+                  </div>
+                ))}
+              </div>
               {/* Duplicate for seamless loop */}
-              {Array.from({ length: 20 }).map((_, logoIndex) => (
-                <div key={`dup-${logoIndex}`} className="gelly-bg-logo">
-                  {backgroundLogo}
-                </div>
-              ))}
+              <div className="gelly-bg-row-set">
+                {Array.from({ length: 20 }).map((_, logoIndex) => (
+                  <div key={`dup-${logoIndex}`} className="gelly-bg-logo">
+                    {backgroundLogo}
+                  </div>
+                ))}
+              </div>
             </div>
           );
         })}
