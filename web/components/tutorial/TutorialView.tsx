@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Lightbulb, CheckCircle2, Eye, Code2, Play, X } from "lucide-react";
+import { Lightbulb, CheckCircle2, Eye, Code2, Play, X, ArrowRight } from "lucide-react";
 import { api } from "@/api";
 
 interface Challenge {
@@ -155,7 +156,7 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
       className="flex flex-col w-full max-w-full h-full overflow-hidden"
     >
       {/* Main Content Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 p-4 overflow-hidden min-h-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 p-4 overflow-hidden min-h-0 relative">
         {/* Top Left: Instructions Panel */}
         <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
@@ -310,6 +311,29 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
             )}
           </CardContent>
         </Card>
+
+        {/* Completion Overlay Button - Centered over grid intersection */}
+        {isComplete && (() => {
+          const nextChallenge = levels.find((level) => level.number === challengeNumber + 1);
+          if (!nextChallenge) return null;
+          
+          return (
+            <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
+              <Link
+                to={`/challenge/${nextChallenge.id}`}
+                className="pointer-events-auto"
+              >
+                <Button
+                  size="lg"
+                  className="text-2xl px-12 py-8 h-auto shadow-2xl animate-in fade-in zoom-in duration-300"
+                >
+                  Continue to next challenge
+                  <ArrowRight className="ml-3 h-8 w-8" />
+                </Button>
+              </Link>
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
