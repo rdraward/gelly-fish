@@ -37,7 +37,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <nav className={`shrink-0 ${isHome ? "border-b border-white/10 bg-transparent backdrop-blur supports-[backdrop-filter]:bg-black/10" : "border-b"}`}>
+      <nav className={`shrink-0`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <Navigation />
@@ -64,7 +64,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
           </div>
         </div>
       </nav>
-      <main className={`flex-1 overflow-hidden ${isHome ? "bg-transparent" : "bg-muted/20"}`}>
+      <main className="flex-1 overflow-hidden bg-transparent">
         {isHome ? (
           <Outlet context={context} />
         ) : (

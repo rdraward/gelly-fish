@@ -21,6 +21,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { NavDrawer } from "@/components/shared/NavDrawer";
+import { GellyLogo } from "@/components/shared/GellyLogo";
 
 interface NavItem {
   type: "item";
@@ -52,16 +53,11 @@ const navigationItems: NavItems = [];
 
 // Root navigation bar: logo, mobile, and desktop nav
 export const Navigation = () => (
-  <div className="flex justify-center items-center gap-2">
+  <div className="flex items-center gap-2">
     <MobileNav />
     <div className="flex-shrink-0">
-      {/*
-        Placeholder for app logo.
-        Replace the <img> below with your real logo once available.
-        You can update the src, alt, and styling as needed for your brand.
-      */}
-      <Link to="/" className="text-xl font-bold">
-        <img src="/api/assets/autologo?background=dark" alt="App name" className="h-5 w-auto" />
+      <Link to="/" className="flex items-center" aria-label="Home">
+        <GellyLogo height={32} className="block" />
       </Link>
     </div>
     <DesktopNav />

@@ -39,16 +39,15 @@ export default function TutorialIndex({ loaderData }: Route.ComponentProps) {
   const { challenges, userProgress } = loaderData;
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/20 dark:from-slate-950 dark:via-blue-950/30 dark:to-purple-950/20 py-6">
+    <div className="min-h-[calc(100vh-8rem)] py-6">
         {/* Header */}
         <div className="mb-12 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <Sparkles className="h-10 w-10 text-primary" />
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Gelly Quacks
+            <h1 className="text-4xl font-bold text-white">
+              Start your Gelly journey
             </h1>
           </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-white max-w-2xl mx-auto">
             Learn Gadget's powerful Gelly data access language through interactive tutorials. 
             Master queries, filters, and data manipulation one challenge at a time.
           </p>

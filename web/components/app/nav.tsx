@@ -25,6 +25,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router";
 import { useSignOut } from "@gadgetinc/react";
 import { NavDrawer } from "@/components/shared/NavDrawer";
+import { GellyLogo } from "@/components/shared/GellyLogo";
 import { Home, User, LogOut, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,7 +72,7 @@ export const MobileNav = () => {
 export const DesktopNav = () => {
   return (
     <div className="hidden md:flex w-64 flex-col fixed inset-y-0 z-30">
-      <div className="flex flex-col grow bg-background border-r h-full">
+      <div className="flex flex-col grow bg-transparent border-r h-full">
         <Navigation />
       </div>
     </div>
@@ -102,8 +103,8 @@ export const Navigation = ({ onLinkClick }: { onLinkClick?: () => void }) => {
   return (
     <>
       <div className="h-16 flex items-center px-6 border-b">
-        <Link to="/signed-in" className="flex items-center" onClick={onLinkClick}>
-          <img src="/api/assets/autologo?background=light" alt="App logo" className="h-8 w-auto" />
+        <Link to="/" className="flex items-center" onClick={onLinkClick}>
+          <GellyLogo height={36} />
         </Link>
       </div>
       <nav className="flex-1 px-4 py-4 flex flex-col gap-1">
