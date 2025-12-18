@@ -15,6 +15,11 @@ export const links = () => [
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap",
   },
+  {
+    rel: "icon",
+    type: "image/svg+xml",
+    href: "/favicon.svg",
+  },
 ];
 
 export const meta = () => [
