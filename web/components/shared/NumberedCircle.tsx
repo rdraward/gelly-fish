@@ -8,7 +8,7 @@ interface NumberedCircleProps {
 export const NumberedCircle = ({ number, size = 24, isActive = false, className = "" }: NumberedCircleProps) => {
   return (
     <div
-      className={`flex items-center justify-center rounded-full border-2 transition-colors ${
+      className={`flex items-center justify-center rounded-full border-1 border-white transition-colors ${
         isActive 
           ? "border-primary bg-primary text-primary-foreground" 
           : "border-primary/20 bg-white text-[#9260d2]"

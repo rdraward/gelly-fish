@@ -54,7 +54,9 @@ export default function TutorialChallenge({ loaderData }: Route.ComponentProps) 
           challenge={{
             id: challenge.id,
             prompt: challenge.prompt,
+            title: challenge.title,
             hint: challenge.hint,
+            hintLink: challenge.hintLink,
             solution: challenge.solution,
             expectedOutput: challenge.expectedOutput,
           }}

@@ -20,7 +20,7 @@ export const links = () => [
 export const meta = () => [
   { charset: "utf-8" },
   { name: "viewport", content: "width=device-width, initial-scale=1" },
-  { title: "Gadget React Router app" },
+  { title: "Gelly Wiggle - Learn Gelly" },
 ];
 
 export type RootOutletContext = {

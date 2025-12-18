@@ -17,6 +17,11 @@ export const schema: GadgetModel = {
       validations: { required: true },
       storageKey: "yHLtNXLtXc4O",
     },
+    hintLink: {
+      type: "url",
+      validations: { required: true },
+      storageKey: "16oNKVjfm1SX",
+    },
     prompt: {
       type: "string",
       validations: { required: true },
@@ -26,6 +31,11 @@ export const schema: GadgetModel = {
       type: "string",
       validations: { required: true },
       storageKey: "HmywzBHd9hv_",
+    },
+    title: {
+      type: "string",
+      validations: { required: true },
+      storageKey: "chcuh_Ab_73i",
     },
     users: {
       type: "hasManyThrough",

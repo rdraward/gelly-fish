@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Lightbulb, CheckCircle2, Eye, Code2, Play, Copy } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Lightbulb, CheckCircle2, Eye, Code2, Play, X } from "lucide-react";
 import { api } from "@/api";
-import { toast } from "sonner";
 
 interface Challenge {
   id: string;
+  title: string;
   prompt: string;
   hint: string;
+  hintLink: string;
   solution: string;
   expectedOutput: string;
 }
@@ -34,10 +35,10 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
   const [queryOutput, setQueryOutput] = useState<string | null>(null);
   const [runStatus, setRunStatus] = useState<{ passed: boolean; message: string } | null>(null);
   const [showHint, setShowHint] = useState(false);
-  const [showSolution, setShowSolution] = useState(false);
   const [showTargetOutput, setShowTargetOutput] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [showSolutionFlash, setShowSolutionFlash] = useState(false);
 
   const unwrapSingleValue = (value: unknown): unknown => {
     if (value == null) return value;
@@ -135,33 +136,34 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
   };
 
   const handleShowSolution = () => {
-    setShowSolution(true);
+    setGellyCode(challenge.solution);
+    setShowSolutionFlash(true);
   };
 
-  const handleCopySolution = async () => {
-    try {
-      await navigator.clipboard.writeText(challenge.solution);
-      toast.success("Solution copied to clipboard!");
-    } catch (err) {
-      toast.error("Failed to copy solution");
+  useEffect(() => {
+    if (showSolutionFlash) {
+      const timer = setTimeout(() => {
+        setShowSolutionFlash(false);
+      }, 2000); // Flash for 2 seconds
+      return () => clearTimeout(timer);
     }
-  };
+  }, [showSolutionFlash]);
 
   return (
     <div
       className="flex flex-col w-full max-w-full h-full overflow-hidden"
     >
       {/* Main Content Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 overflow-hidden min-h-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 p-4 overflow-hidden min-h-0">
         {/* Top Left: Instructions Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg">
+        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <span className="font-bold">Level {challengeNumber}: The Gelly Adventure</span>
+              <span className="font-bold">Challenge {challengeNumber}: {challenge.title}</span>
               {isComplete && <CheckCircle2 className="h-4 w-4 text-green-500" />}
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 p-6">
+          <CardContent className="flex-1 pb-2">
             <div className="h-full pr-4">
               <div className="space-y-4 text-base leading-relaxed">
                 <div className="prose prose-sm dark:prose-invert max-w-none">
@@ -173,20 +175,20 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
         </Card>
 
         {/* Top Right: Target Output Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg">
+        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
-            <CardTitle className="text-lg font-bold">Target Output</CardTitle>
+            <CardTitle className="text-lg font-bold">Target output</CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 flex items-center justify-center p-6">
+          <CardContent className="flex-1 flex pb-2">
             {!showTargetOutput ? (
               <Button
                 onClick={handleRevealOutput}
                 variant="outline"
                 size="lg"
-                className="w-full h-20 text-base"
+                className="w-full h-full text-base"
               >
                 <Eye className="mr-2 h-5 w-5" />
-                Reveal Output
+                Reveal expected output
               </Button>
             ) : (
               <div className="h-full w-full overflow-hidden">
@@ -199,22 +201,57 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
         </Card>
 
         {/* Bottom Left: Gelly Editor Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg">
+        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="text-lg font-bold flex items-center gap-2">
               <Code2 className="h-4 w-4" />
-              Gelly Editor
+              Gelly editor
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 flex flex-col gap-4 p-6">
+          <CardContent className="flex-1 flex flex-col gap-4 pb-2">
             <div className="flex-1 min-h-0">
               <Textarea
                 value={gellyCode}
                 onChange={(e) => setGellyCode(e.target.value)}
-                placeholder="-- Enter your Gelly query here&#10;-- Example: findMany(user)"
-                className="h-full font-mono text-base resize-none"
+                placeholder="-- Enter your Gelly query here&#10;-- view { <your query> }"
+                className={`h-full font-mono text-base resize-none transition-colors duration-300 ${
+                  showSolutionFlash ? "border-green-500/30 ring-2 ring-green-500/20" : ""
+                }`}
               />
             </div>
+            {showHint && (
+              <Alert className="border-amber-500/30 bg-amber-500/10">
+                <Lightbulb className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+                <AlertDescription className="text-amber-800 dark:text-amber-300">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex-1 whitespace-pre-wrap">
+                      {challenge.hint}
+                      {challenge.hintLink && (
+                        <>
+                          {" "}
+                          <a
+                            href={challenge.hintLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-amber-700 dark:text-amber-300 hover:underline font-medium"
+                          >
+                            Read the docs
+                          </a>
+                        </>
+                      )}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 shrink-0 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300"
+                      onClick={() => setShowHint(false)}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </AlertDescription>
+              </Alert>
+            )}
             <div className="flex gap-2 flex-wrap">
               <Button
                 onClick={handleRun}
@@ -224,64 +261,24 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
                 <Play className="mr-2 h-4 w-4" />
                 {isRunning ? "Running..." : "Run"}
               </Button>
-              <Dialog open={showHint} onOpenChange={setShowHint}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" onClick={handleShowHint}>
-                    <Lightbulb className="mr-2 h-4 w-4" />
-                    Hint
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Hint</DialogTitle>
-                    <DialogDescription className="whitespace-pre-wrap pt-4">
-                      {challenge.hint}
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
-              <Dialog open={showSolution} onOpenChange={setShowSolution}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" onClick={handleShowSolution}>
-                    <Code2 className="mr-2 h-4 w-4" />
-                    Solution
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-2xl">
-                  <DialogHeader>
-                    <DialogTitle>Solution</DialogTitle>
-                    <DialogDescription className="pt-4">
-                      <div className="relative">
-                        <pre className="text-sm font-mono bg-muted p-4 rounded-md whitespace-pre-wrap overflow-auto select-all">
-                          {challenge.solution}
-                        </pre>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={handleCopySolution}
-                          className="absolute top-2 right-2 h-8"
-                        >
-                          <Copy className="h-4 w-4 mr-2" />
-                          Copy
-                        </Button>
-                      </div>
-                    </DialogDescription>
-                  </DialogHeader>
-                </DialogContent>
-              </Dialog>
+              <Button variant="outline" onClick={handleShowHint}>
+                <Lightbulb className="mr-2 h-4 w-4" />
+                {showHint ? "Hide Hint" : "Hint"}
+              </Button>
+              <Button variant="outline" onClick={handleShowSolution}>
+                <Code2 className="mr-2 h-4 w-4" />
+                Solution
+              </Button>
             </div>
-            <p className="text-sm text-muted-foreground text-center">
-              {gellyCode.trim() ? "Ready to run!" : "Enter your Gelly query above"}
-            </p>
           </CardContent>
         </Card>
 
         {/* Bottom Right: Query Output Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg">
+        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
-            <CardTitle className="text-lg font-bold">Query Output</CardTitle>
+            <CardTitle className="text-lg font-bold">Query output</CardTitle>
           </CardHeader>
-          <CardContent className="flex-1 p-6">
+          <CardContent className="flex-1 pb-2">
             {runStatus && (
               <div
                 className={`mb-3 rounded-md border px-3 py-2 text-base ${

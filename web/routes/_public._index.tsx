@@ -25,7 +25,7 @@ export default function () {
       } catch (error) {
         console.error("Failed to fetch first challenge:", error);
       }
-    }, EXPANSION_DURATION_MS + 50);
+    }, EXPANSION_DURATION_MS - 150);
     
     return () => {
       window.clearTimeout(navT);
@@ -286,7 +286,7 @@ export default function () {
             It's cool to be Gelly
           </h1>
           <p className="gelly-subtitle text-xl md:text-2xl max-w-2xl mx-auto">
-            <span className="font-semibold">Learn Gelly</span> through interactive tutorials.
+            <span className="font-semibold">Learn Gelly</span> through interactive tutorials
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Button asChild className="w-auto bg-transparent p-0 hover:bg-transparent">
