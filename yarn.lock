@@ -886,7 +886,12 @@
     "@gadgetinc/core" ">=0.14.0"
     "@urql/core" "^6.0.1"
 
-"@gadgetinc/core@0.15.0", "@gadgetinc/core@>=0.14.0":
+"@gadgetinc/core@0.15.1":
+  version "0.15.1"
+  resolved "https://registry.yarnpkg.com/@gadgetinc/core/-/core-0.15.1.tgz#7740035306c89e59b0ddf734f3ce3e6c1d87938f"
+  integrity sha512-MFvJ6FfSdcwMPoNhg/1t8O9K41GwIVEmflbbgU1nalTX6KBLcib58q04mFgLv9f/WEnwud9q7aOM9nRH4lNZ1w==
+
+"@gadgetinc/core@>=0.14.0":
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/@gadgetinc/core/-/core-0.15.0.tgz#7bba9d6549b739974919169a925a2fb54fc23672"
   integrity sha512-Ai+lx2wM/SKCsO7Oq/0H1HLadfqgeuv5WW/UKhI/vTuJvYqFQAmawjyNSqSL2q+YjUe3LV0309uIUZtdmKY4Yw==
