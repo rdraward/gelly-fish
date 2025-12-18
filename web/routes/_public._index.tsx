@@ -289,6 +289,9 @@ export default function () {
           gap: 4rem;
           width: max-content;
           padding: 2rem 0;
+          will-change: transform;
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
         }
 
         .gelly-bg-logo {
@@ -313,19 +316,19 @@ export default function () {
 
         @keyframes gelly-carousel-left {
           0% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
         }
 
         @keyframes gelly-carousel-right {
           0% {
-            transform: translateX(-50%);
+            transform: translate3d(-50%, 0, 0);
           }
           100% {
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
           }
         }
 
@@ -349,6 +352,55 @@ export default function () {
           .gelly-bg-row--left,
           .gelly-bg-row--right {
             animation: none !important;
+          }
+        }
+
+        .gelly-footer {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.5rem;
+          transition: opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gelly-logo--expanding ~ .gelly-hero ~ .gelly-footer {
+          opacity: 0;
+        }
+
+        .gelly-footer__link {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          color: rgba(255,255,255,0.7);
+          font-size: 0.875rem;
+          text-decoration: none;
+          transition: color 200ms ease, opacity 200ms ease;
+        }
+
+        .gelly-footer__link:hover {
+          color: rgba(255,255,255,0.9);
+        }
+
+        .gelly-footer__logo {
+          width: 20px;
+          height: 20px;
+          opacity: 0.8;
+          transition: opacity 200ms ease;
+        }
+
+        .gelly-footer__link:hover .gelly-footer__logo {
+          opacity: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .gelly-footer {
+            transition: none !important;
           }
         }
       `}</style>
@@ -415,6 +467,20 @@ export default function () {
           </div>
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="gelly-footer">
+        <a
+          href="https://gadget.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="gelly-footer__link"
+        >
+          <span>Built with</span>
+          <img src="/gadget.svg" alt="Gadget" className="gelly-footer__logo" />
+          <span>Gadget</span>
+        </a>
+      </footer>
     </div>
   );
 }
