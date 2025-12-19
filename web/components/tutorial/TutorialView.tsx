@@ -184,7 +184,7 @@ export function TutorialView({
       {/* Main Content Grid */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 p-4 overflow-hidden min-h-0 relative">
         {/* Top Left: Instructions Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
+        <Card className="flex flex-col overflow-hidden border-6 border-primary/60 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="flex items-center gap-2 text-lg">
               <span className="font-bold">
@@ -214,7 +214,7 @@ export function TutorialView({
         </Card>
 
         {/* Top Right: Target Output Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
+        <Card className="flex flex-col overflow-hidden border-6 border-primary/60 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="text-lg font-bold">Target output</CardTitle>
           </CardHeader>
@@ -240,7 +240,7 @@ export function TutorialView({
         </Card>
 
         {/* Bottom Left: Gelly Editor Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
+        <Card className="flex flex-col overflow-hidden border-6 border-primary/60 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="text-lg font-bold flex items-center gap-2">
               <Code2 className="h-4 w-4" />
@@ -315,7 +315,7 @@ export function TutorialView({
         </Card>
 
         {/* Bottom Right: Query Output Panel */}
-        <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
+        <Card className="flex flex-col overflow-hidden border-6 border-primary/60 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="text-lg font-bold">Query output</CardTitle>
           </CardHeader>
