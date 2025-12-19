@@ -191,6 +191,7 @@ export default function () {
               var(--gelly) 60%,
               color-mix(in oklab, var(--gelly), black 16%) 100%);
           color: white;
+          font-size: 1.125rem;
           font-weight: 700;
           letter-spacing: 0.01em;
           transform-style: preserve-3d;
