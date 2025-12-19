@@ -4,7 +4,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Lightbulb, CheckCircle2, Eye, Code2, Play, X, ArrowRight } from "lucide-react";
+import {
+  Lightbulb,
+  CheckCircle2,
+  Eye,
+  Code2,
+  Play,
+  X,
+  ArrowRight,
+} from "lucide-react";
 import { api } from "@/api";
 
 interface Challenge {
@@ -32,10 +40,19 @@ interface TutorialViewProps {
   levels?: TutorialLevelLink[];
 }
 
-export function TutorialView({ challenge, challengeNumber = 1, onComplete, user, levels = [] }: TutorialViewProps) {
+export function TutorialView({
+  challenge,
+  challengeNumber = 1,
+  onComplete,
+  user,
+  levels = [],
+}: TutorialViewProps) {
   const [gellyCode, setGellyCode] = useState("");
   const [queryOutput, setQueryOutput] = useState<string | null>(null);
-  const [runStatus, setRunStatus] = useState<{ passed: boolean; message: string } | null>(null);
+  const [runStatus, setRunStatus] = useState<{
+    passed: boolean;
+    message: string;
+  } | null>(null);
   const [showHint, setShowHint] = useState(false);
   const [showTargetOutput, setShowTargetOutput] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
@@ -103,11 +120,19 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
       const response = await api.view(gellyCode);
       // Display: keep JSON (nice for debugging), but grade on values only
       const displayText =
-        typeof response === "string" ? response : response == null ? "" : JSON.stringify(response, null, 2);
+        typeof response === "string"
+          ? response
+          : response == null
+            ? ""
+            : JSON.stringify(response, null, 2);
       setQueryOutput(displayText);
 
-      const queryMatchesSolution = normalizeForCompare(gellyCode) === normalizeForCompare(challenge.solution);
-      const outputMatchesExpected = normalizeForCompare(response) === normalizeForCompare(parseExpectedValue(challenge.expectedOutput));
+      const queryMatchesSolution =
+        normalizeForCompare(gellyCode) ===
+        normalizeForCompare(challenge.solution);
+      const outputMatchesExpected =
+        normalizeForCompare(response) ===
+        normalizeForCompare(parseExpectedValue(challenge.expectedOutput));
       const passed = queryMatchesSolution || outputMatchesExpected;
 
       setIsComplete(passed);
@@ -123,7 +148,10 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
       const message = err?.message ? String(err.message) : "Unknown error";
       setIsComplete(false);
       setQueryOutput(`Error running query:\n${message}`);
-      setRunStatus({ passed: false, message: "Error running query (see output)." });
+      setRunStatus({
+        passed: false,
+        message: "Error running query (see output).",
+      });
     } finally {
       setIsRunning(false);
     }
@@ -152,17 +180,19 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
   }, [showSolutionFlash]);
 
   return (
-    <div
-      className="flex flex-col w-full max-w-full h-full overflow-hidden"
-    >
+    <div className="flex flex-col w-full max-w-full h-full overflow-hidden">
       {/* Main Content Grid */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 p-4 overflow-hidden min-h-0 relative">
         {/* Top Left: Instructions Panel */}
         <Card className="flex flex-col overflow-hidden border-2 border-primary/20 shadow-lg h-full">
           <CardHeader className="py-2 pb-1.5 border-b">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <span className="font-bold">Challenge {challengeNumber}: {challenge.title}</span>
-              {isComplete && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+              <span className="font-bold">
+                Challenge {challengeNumber}: {challenge.title}
+              </span>
+              {isComplete && (
+                <CheckCircle2 className="h-4 w-4 text-green-500" />
+              )}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 pb-2">
@@ -170,9 +200,13 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
               <div className="space-y-4 text-base leading-relaxed">
                 <div className="prose prose-sm dark:prose-invert max-w-none">
                   {challenge.backstory && (
-                    <p className="text-foreground whitespace-pre-wrap mb-4">{challenge.backstory}</p>
+                    <p className="text-foreground whitespace-pre-wrap mb-4">
+                      {challenge.backstory}
+                    </p>
                   )}
-                  <p className="text-foreground whitespace-pre-wrap font-bold">{challenge.prompt}</p>
+                  <p className="text-foreground whitespace-pre-wrap font-bold">
+                    {challenge.prompt}
+                  </p>
                 </div>
               </div>
             </div>
@@ -220,15 +254,17 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
                 onChange={(e) => setGellyCode(e.target.value)}
                 placeholder="-- Enter your Gelly query here&#10;-- view { <your query> }"
                 className={`h-full font-mono text-base resize-none transition-colors duration-300 ${
-                  showSolutionFlash ? "border-green-500/30 ring-2 ring-green-500/20" : ""
+                  showSolutionFlash
+                    ? "border-green-500/30 ring-2 ring-green-500/20"
+                    : ""
                 }`}
               />
             </div>
             {showHint && (
               <Alert className="border-amber-500/30 bg-amber-500/10">
                 <Lightbulb className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-                <AlertDescription className="text-amber-800 dark:text-amber-300">
-                  <div className="flex items-start justify-between gap-2">
+                <AlertDescription className="text-amber-800 dark:text-amber-300 w-full !flex !flex-col">
+                  <div className="flex items-start justify-between gap-2 w-full">
                     <div className="flex-1 whitespace-pre-wrap">
                       {challenge.hint}
                       {challenge.hintLink && (
@@ -313,29 +349,31 @@ export function TutorialView({ challenge, challengeNumber = 1, onComplete, user,
         </Card>
 
         {/* Completion Overlay Button - Centered over grid intersection */}
-        {isComplete && (() => {
-          const nextChallenge = levels.find((level) => level.number === challengeNumber + 1);
-          if (!nextChallenge) return null;
-          
-          return (
-            <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
-              <Link
-                to={`/challenge/${nextChallenge.id}`}
-                className="pointer-events-auto"
-              >
-                <Button
-                  size="lg"
-                  className="text-2xl px-12 py-8 h-auto shadow-2xl animate-in fade-in zoom-in duration-300"
+        {isComplete &&
+          (() => {
+            const nextChallenge = levels.find(
+              (level) => level.number === challengeNumber + 1
+            );
+            if (!nextChallenge) return null;
+
+            return (
+              <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
+                <Link
+                  to={`/challenge/${nextChallenge.id}`}
+                  className="pointer-events-auto"
                 >
-                  Continue to next challenge
-                  <ArrowRight className="ml-3 h-8 w-8" />
-                </Button>
-              </Link>
-            </div>
-          );
-        })()}
+                  <Button
+                    size="lg"
+                    className="text-2xl px-12 py-8 h-auto shadow-2xl animate-in fade-in zoom-in duration-300"
+                  >
+                    Continue to next challenge
+                    <ArrowRight className="ml-3 h-8 w-8" />
+                  </Button>
+                </Link>
+              </div>
+            );
+          })()}
       </div>
     </div>
   );
 }
-
