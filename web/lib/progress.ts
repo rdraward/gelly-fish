@@ -124,7 +124,7 @@ export async function getCompletedChallengesFromAPI(
   try {
     const progressRecords = await api.progress.findMany({
       filter: {
-        user: { id: { equals: userId } },
+        userId: { equals: userId },
         isComplete: { equals: true },
       },
     });

@@ -100,15 +100,27 @@ export function GellyEditorPanel({
             <Play className="mr-2 h-4 w-4" />
             {isRunning ? "Running..." : "Run"}
           </Button>
-          <Button variant="outline" onClick={showHint ? onHideHint : onShowHint} className="min-w-[120px]">
+          <Button
+            variant="outline"
+            onClick={showHint ? onHideHint : onShowHint}
+            className="min-w-[125px]"
+          >
             <Lightbulb className="mr-2 h-4 w-4" />
             {showHint ? "Hide Hint" : "Hint"}
           </Button>
-          <Button variant="outline" onClick={onShowSolution} className="min-w-[120px]">
+          <Button
+            variant="outline"
+            onClick={onShowSolution}
+            className="min-w-[125px]"
+          >
             <Code2 className="mr-2 h-4 w-4" />
             Solution
           </Button>
-          <Button variant="outline" onClick={onShowSchema} className="min-w-[120px]">
+          <Button
+            variant="outline"
+            onClick={onShowSchema}
+            className="min-w-[125px]"
+          >
             <Database className="mr-2 h-4 w-4" />
             Schema
           </Button>
@@ -117,4 +129,3 @@ export function GellyEditorPanel({
     </Card>
   );
 }
-
