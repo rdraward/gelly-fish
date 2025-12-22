@@ -23,6 +23,7 @@ import {
 import { NavDrawer } from "@/components/shared/NavDrawer";
 import { GellyLogo } from "@/components/shared/GellyLogo";
 import { NumberedCircle } from "@/components/shared/NumberedCircle";
+import { useProgress } from "@/lib/progress-context";
 
 interface NavItem {
   type: "item";
@@ -55,13 +56,18 @@ const navigationItems: NavItems = [];
 // Root navigation bar: logo, mobile, and desktop nav
 export const Navigation = () => {
   const matches = useMatches();
-  
+  const { completedChallenges } = useProgress();
+
   // Get challenge data from the challenge route if we're on a challenge page
-  const challengeMatch = matches.find((match: any) => match.pathname?.startsWith("/challenge/"));
-  const challengeData = challengeMatch?.data as { 
-    levels?: Array<{ id: string; number: number }>; 
-    challenge?: { id: string } 
-  } | undefined;
+  const challengeMatch = matches.find((match: any) =>
+    match.pathname?.startsWith("/challenge/")
+  );
+  const challengeData = challengeMatch?.data as
+    | {
+        levels?: Array<{ id: string; number: number }>;
+        challenge?: { id: string };
+      }
+    | undefined;
   const levels = challengeData?.levels;
   const currentChallengeId = challengeData?.challenge?.id;
   const isChallengePage = !!levels && levels.length > 0;
@@ -78,6 +84,7 @@ export const Navigation = () => {
         <nav className="flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1 ml-4">
           {levels.map((lvl) => {
             const isActive = lvl.id === currentChallengeId;
+            const isCompleted = completedChallenges.has(lvl.id);
             return (
               <Link
                 key={lvl.id}
@@ -85,7 +92,11 @@ export const Navigation = () => {
                 aria-current={isActive ? "page" : undefined}
                 className="inline-block shrink-0"
               >
-                <NumberedCircle number={lvl.number} isActive={isActive} />
+                <NumberedCircle
+                  number={lvl.number}
+                  isActive={isActive}
+                  isCompleted={isCompleted}
+                />
               </Link>
             );
           })}
@@ -164,9 +175,13 @@ const DesktopNav = () => (
                           to={subItem.href}
                           className="block flex flex-col gap-1 rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                         >
-                          <div className="text-sm font-medium">{subItem.title}</div>
+                          <div className="text-sm font-medium">
+                            {subItem.title}
+                          </div>
                           {subItem.description && (
-                            <p className="text-sm text-muted-foreground">{subItem.description}</p>
+                            <p className="text-sm text-muted-foreground">
+                              {subItem.description}
+                            </p>
                           )}
                         </Link>
                       </NavigationMenuLink>

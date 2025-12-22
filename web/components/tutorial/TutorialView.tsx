@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { api } from "@/api";
 import { InstructionsPanel } from "./InstructionsPanel";
 import { TargetOutputPanel } from "./TargetOutputPanel";
 import { GellyEditorPanel } from "./GellyEditorPanel";
 import { QueryOutputPanel } from "./QueryOutputPanel";
 import { CompletionOverlay } from "./CompletionOverlay";
+import { SchemaModal } from "./SchemaModal";
 import { normalizeForCompare, parseExpectedValue } from "./utils";
+import { useProgress } from "@/lib/progress-context";
 
 interface Challenge {
   id: string;
@@ -50,6 +52,14 @@ export function TutorialView({
   const [isRunning, setIsRunning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [showSolutionFlash, setShowSolutionFlash] = useState(false);
+  const [showSchemaModal, setShowSchemaModal] = useState(false);
+  const hasTrackedCompletion = useRef(false);
+  const { markChallengeCompleted, completedChallenges, getSolution } =
+    useProgress();
+  const hasLoadedSolution = useRef(false);
+
+  // Check if this challenge was previously completed
+  const wasPreviouslyCompleted = completedChallenges.has(challenge.id);
 
   const handleRun = async () => {
     setIsRunning(true);
@@ -76,7 +86,16 @@ export function TutorialView({
       const passed = queryMatchesSolution || outputMatchesExpected;
 
       setIsComplete(passed);
-      if (passed) onComplete?.();
+      if (passed) {
+        onComplete?.();
+        // Track completion (only once per challenge) and save the solution
+        if (!hasTrackedCompletion.current) {
+          hasTrackedCompletion.current = true;
+          markChallengeCompleted(challenge.id, gellyCode).catch((error) => {
+            console.error("Failed to track challenge completion:", error);
+          });
+        }
+      }
 
       setRunStatus({
         passed,
@@ -114,6 +133,10 @@ export function TutorialView({
     setShowSolutionFlash(true);
   };
 
+  const handleShowSchema = () => {
+    setShowSchemaModal(true);
+  };
+
   useEffect(() => {
     if (showSolutionFlash) {
       const timer = setTimeout(() => {
@@ -123,6 +146,31 @@ export function TutorialView({
     }
   }, [showSolutionFlash]);
 
+  // Reset completion tracking and load stored solution when challenge changes
+  useEffect(() => {
+    hasTrackedCompletion.current = false;
+    hasLoadedSolution.current = false;
+    // Reset isComplete when challenge changes (don't set it based on previous completion)
+    // isComplete should only be true when completed in the current session
+    setIsComplete(false);
+    // Reset editor to empty
+    setGellyCode("");
+
+    // Load stored solution if challenge was previously completed
+    if (wasPreviouslyCompleted) {
+      getSolution(challenge.id)
+        .then((storedSolution) => {
+          if (storedSolution && !hasLoadedSolution.current) {
+            hasLoadedSolution.current = true;
+            setGellyCode(storedSolution);
+          }
+        })
+        .catch((error) => {
+          console.error("Failed to load stored solution:", error);
+        });
+    }
+  }, [challenge.id, wasPreviouslyCompleted, getSolution]);
+
   return (
     <div className="flex flex-col w-full max-w-full h-full overflow-hidden">
       {/* Main Content Grid */}
@@ -131,7 +179,7 @@ export function TutorialView({
         <InstructionsPanel
           challenge={challenge}
           challengeNumber={challengeNumber}
-          isComplete={isComplete}
+          isComplete={isComplete || wasPreviouslyCompleted}
         />
 
         {/* Top Right: Target Output Panel */}
@@ -151,6 +199,7 @@ export function TutorialView({
           onHideHint={handleHideHint}
           onRun={handleRun}
           onShowSolution={handleShowSolution}
+          onShowSchema={handleShowSchema}
           isRunning={isRunning}
           showSolutionFlash={showSolutionFlash}
         />
@@ -165,6 +214,12 @@ export function TutorialView({
           levels={levels}
         />
       </div>
+      {/* Schema Modal */}
+      <SchemaModal
+        open={showSchemaModal}
+        onOpenChange={setShowSchemaModal}
+        modelNames={["jellyfish"]}
+      />
     </div>
   );
 }

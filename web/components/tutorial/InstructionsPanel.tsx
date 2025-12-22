@@ -26,7 +26,7 @@ export function InstructionsPanel({
             Challenge {challengeNumber}: {challenge.title}
           </span>
           {isComplete && (
-            <CheckCircle2 className="h-4 w-4 text-green-500" />
+            <CheckCircle2 className="h-5 w-5 text-green-500 flex-shrink-0" />
           )}
         </CardTitle>
       </CardHeader>

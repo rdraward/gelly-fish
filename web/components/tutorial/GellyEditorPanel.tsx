@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Lightbulb, Code2, Play, X } from "lucide-react";
+import { Lightbulb, Code2, Play, X, Database } from "lucide-react";
 
 interface Challenge {
   hint: string;
@@ -19,6 +19,7 @@ interface GellyEditorPanelProps {
   onHideHint: () => void;
   onRun: () => void;
   onShowSolution: () => void;
+  onShowSchema: () => void;
   isRunning: boolean;
   showSolutionFlash: boolean;
 }
@@ -32,6 +33,7 @@ export function GellyEditorPanel({
   onHideHint,
   onRun,
   onShowSolution,
+  onShowSchema,
   isRunning,
   showSolutionFlash,
 }: GellyEditorPanelProps) {
@@ -98,13 +100,17 @@ export function GellyEditorPanel({
             <Play className="mr-2 h-4 w-4" />
             {isRunning ? "Running..." : "Run"}
           </Button>
-          <Button variant="outline" onClick={showHint ? onHideHint : onShowHint}>
+          <Button variant="outline" onClick={showHint ? onHideHint : onShowHint} className="min-w-[120px]">
             <Lightbulb className="mr-2 h-4 w-4" />
             {showHint ? "Hide Hint" : "Hint"}
           </Button>
-          <Button variant="outline" onClick={onShowSolution}>
+          <Button variant="outline" onClick={onShowSolution} className="min-w-[120px]">
             <Code2 className="mr-2 h-4 w-4" />
             Solution
+          </Button>
+          <Button variant="outline" onClick={onShowSchema} className="min-w-[120px]">
+            <Database className="mr-2 h-4 w-4" />
+            Schema
           </Button>
         </div>
       </CardContent>

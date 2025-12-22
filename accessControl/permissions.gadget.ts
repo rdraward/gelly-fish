@@ -18,19 +18,9 @@ export const permissions: GadgetPermissions = {
       models: {
         challenge: {
           read: true,
-          actions: {
-            create: true,
-            delete: true,
-            update: true,
-          },
         },
         jellyfish: {
           read: true,
-          actions: {
-            create: true,
-            delete: true,
-            update: true,
-          },
         },
         progress: {
           read: {
@@ -58,9 +48,6 @@ export const permissions: GadgetPermissions = {
             },
           },
         },
-      },
-      actions: {
-        dupe: true,
       },
     },
     unauthenticated: {

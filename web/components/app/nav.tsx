@@ -36,6 +36,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { api } from "@/api";
+import { useProgress } from "@/lib/progress-context";
 
 interface NavItem {
   title: string;
@@ -62,20 +63,22 @@ const navigationItems: NavItem[] = [
 ];
 
 // Mobile hamburger menu, uses Sheet for slide-out drawer
-export const MobileNav = () => {
+export const MobileNav = ({ user }: { user?: any }) => {
   return (
     <div className="flex md:hidden">
-      <NavDrawer>{({ close }) => <Navigation onLinkClick={close} />}</NavDrawer>
+      <NavDrawer>
+        {({ close }) => <Navigation onLinkClick={close} user={user} />}
+      </NavDrawer>
     </div>
   );
 };
 
 // Desktop left nav bar
-export const DesktopNav = () => {
+export const DesktopNav = ({ user }: { user?: any }) => {
   return (
     <div className="hidden md:flex w-64 flex-col fixed inset-y-0 z-30">
       <div className="flex flex-col grow bg-transparent border-r h-full">
-        <Navigation />
+        <Navigation user={user} />
       </div>
     </div>
   );
@@ -99,17 +102,28 @@ const secondaryNavigationItems: NavItem[] = [
  * Renders navigationItems as vertical links with icons.
  */
 
-export const Navigation = ({ onLinkClick }: { onLinkClick?: () => void }) => {
+export const Navigation = ({
+  onLinkClick,
+  user,
+}: {
+  onLinkClick?: () => void;
+  user?: any;
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const matches = useMatches();
+  const { completedChallenges } = useProgress();
 
   // Get challenge data from the challenge route if we're on a challenge page
-  const challengeMatch = matches.find((match: any) => match.pathname?.startsWith("/challenge/"));
-  const challengeData = challengeMatch?.data as { 
-    levels?: Array<{ id: string; number: number }>; 
-    challenge?: { id: string } 
-  } | undefined;
+  const challengeMatch = matches.find((match: any) =>
+    match.pathname?.startsWith("/challenge/")
+  );
+  const challengeData = challengeMatch?.data as
+    | {
+        levels?: Array<{ id: string; number: number }>;
+        challenge?: { id: string };
+      }
+    | undefined;
   const levels = challengeData?.levels;
   const currentChallengeId = challengeData?.challenge?.id;
   const isChallengePage = !!levels && levels.length > 0;
@@ -133,13 +147,18 @@ export const Navigation = ({ onLinkClick }: { onLinkClick?: () => void }) => {
   return (
     <>
       <div className="h-16 flex items-center px-64 border-b gap-4">
-        <Link to="/" className="flex items-center shrink-0" onClick={onLinkClick}>
+        <Link
+          to="/"
+          className="flex items-center shrink-0"
+          onClick={onLinkClick}
+        >
           <GellyLogo height={36} />
         </Link>
         {isChallengePage && (
           <nav className="flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1">
             {levels.map((lvl) => {
               const isActive = lvl.id === currentChallengeId;
+              const isCompleted = completedChallenges.has(lvl.id);
               return (
                 <Link
                   key={lvl.id}
@@ -148,7 +167,11 @@ export const Navigation = ({ onLinkClick }: { onLinkClick?: () => void }) => {
                   className="inline-block shrink-0"
                   onClick={onLinkClick}
                 >
-                  <NumberedCircle number={lvl.number} isActive={isActive} />
+                  <NumberedCircle
+                    number={lvl.number}
+                    isActive={isActive}
+                    isCompleted={isCompleted}
+                  />
                 </Link>
               );
             })}
@@ -181,7 +204,8 @@ export const Navigation = ({ onLinkClick }: { onLinkClick?: () => void }) => {
               to={item.path}
               className={`flex items-center px-4 py-2 text-sm rounded-md transition-colors
                 ${
-                  location.pathname === item.path || location.pathname.startsWith(item.path + "/")
+                  location.pathname === item.path ||
+                  location.pathname.startsWith(item.path + "/")
                     ? "bg-accent text-accent-foreground"
                     : "hover:bg-accent hover:text-accent-foreground"
                 }`}
@@ -222,7 +246,11 @@ export const SecondaryNavigation = ({ icon }: { icon: ReactNode }) => {
       <DropdownMenuContent align="end" className="w-56">
         <>
           {secondaryNavigationItems.map((item) => (
-            <DropdownMenuItem key={item.path} asChild className="cursor-pointer">
+            <DropdownMenuItem
+              key={item.path}
+              asChild
+              className="cursor-pointer"
+            >
               <Link to={item.path} className="flex items-center">
                 <item.icon className="mr-2 h-4 w-4" />
                 {item.title}
@@ -240,7 +268,10 @@ const SignOutOption = () => {
   const signOut = useSignOut({ redirectToPath: "/" });
 
   return (
-    <DropdownMenuItem onClick={signOut} className="flex items-center text-red-600 focus:text-red-600 cursor-pointer">
+    <DropdownMenuItem
+      onClick={signOut}
+      className="flex items-center text-red-600 focus:text-red-600 cursor-pointer"
+    >
       <LogOut className="mr-2 h-4 w-4" />
       Sign out
     </DropdownMenuItem>

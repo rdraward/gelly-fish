@@ -18,6 +18,11 @@ export const schema: GadgetModel = {
       validations: { required: true },
       storageKey: "SElQhOKYzZin",
     },
+    solution: {
+      type: "string",
+      validations: { required: true },
+      storageKey: "TomQWiM6j2pm",
+    },
     user: {
       type: "belongsTo",
       parent: { model: "user" },
