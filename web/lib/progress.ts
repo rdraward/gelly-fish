@@ -97,10 +97,10 @@ export async function getSolutionFromAPI(
   userId: string
 ): Promise<string | null> {
   try {
-    const progressRecord = await api.progress.findFirst({
+    const progressRecord = await api.progress.maybeFindFirst({
       filter: {
-        challenge: { id: { equals: challengeId } },
-        user: { id: { equals: userId } },
+        challengeId: { equals: challengeId },
+        userId: { equals: userId },
         isComplete: { equals: true },
       },
       select: {
