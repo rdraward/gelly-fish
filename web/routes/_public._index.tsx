@@ -35,7 +35,7 @@ export default function () {
   const jellySvgLogo = useMemo(
     () => (
       <svg
-        className="gelly-logo__svg"
+        className="w-full h-full"
         fill="none"
         viewBox="0 0 16 16"
         aria-hidden="true"
@@ -92,7 +92,7 @@ export default function () {
   const backgroundLogo = useMemo(
     () => (
       <svg
-        className="gelly-bg-logo__svg"
+        className="w-full h-full"
         fill="none"
         viewBox="0 0 16 16"
         aria-hidden="true"
@@ -108,334 +108,35 @@ export default function () {
 
   return (
     <div className="relative overflow-hidden">
-      <style>{`
-        :root {
-          --gelly: #9260d2;
-        }
-
-        .gelly-page {
-          color: rgba(255,255,255,0.92);
-          position: relative;
-        }
-
-        .gelly-logo {
-          position: fixed;
-          width: 480px;
-          height: 480px;
-          left: 50%;
-          top: 50%;
-          transform: translate3d(-50%, -55%, 0) scale(1);
-          opacity: 0.85;
-          z-index: 0;
-          filter: drop-shadow(0 40px 120px rgba(0,0,0,0.55)) drop-shadow(0 18px 70px rgba(146,96,210,0.38)) blur(0.5px);
-          transform-origin: center center;
-          transition: z-index 0s linear, filter 600ms ease-out;
-          will-change: transform, opacity;
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-        }
-
-        .gelly-logo--expanding {
-          z-index: 9999;
-          animation: gelly-star-wipe 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-          filter: drop-shadow(0 100px 200px rgba(0,0,0,0.7)) drop-shadow(0 50px 130px rgba(146,96,210,0.55)) blur(1.5px);
-        }
-
-        .gelly-logo__svg {
-          width: 100%;
-          height: 100%;
-        }
-
-        .gelly-hero {
-          position: relative;
-          z-index: 1;
-          transition: opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .gelly-logo--expanding ~ .gelly-hero {
-          opacity: 0;
-          transform: scale(0.98);
-        }
-
-        .gelly-subtitle {
-          color: rgba(255,255,255,0.82);
-          text-shadow: 0 10px 30px rgba(0,0,0,0.35);
-        }
-
-        @keyframes gelly-jiggle {
-          0%   { transform: translateY(-2px) rotate(0deg) scale(1); }
-          10%  { transform: translateY(-3px) rotate(-2deg) scale(1.02); }
-          20%  { transform: translateY(-1px) rotate(2deg) scale(0.98); }
-          30%  { transform: translateY(-4px) rotate(-1.5deg) scale(1.01); }
-          40%  { transform: translateY(-2px) rotate(1.5deg) scale(0.99); }
-          50%  { transform: translateY(-3px) rotate(-1deg) scale(1.01); }
-          60%  { transform: translateY(-1px) rotate(1deg) scale(0.99); }
-          70%  { transform: translateY(-3px) rotate(-0.5deg) scale(1.005); }
-          80%  { transform: translateY(-2px) rotate(0.5deg) scale(0.995); }
-          90%  { transform: translateY(-2px) rotate(-0.3deg) scale(1.002); }
-          100% { transform: translateY(-2px) rotate(0deg) scale(1); }
-        }
-
-        .gelly-cta {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          padding: 0.9rem 1.25rem;
-          border-radius: 16px;
-          border: 2px solid color-mix(in oklab, var(--gelly), white 10%);
-          background:
-            radial-gradient(120% 180% at 20% 10%,
-              color-mix(in oklab, var(--gelly), white 18%) 0%,
-              var(--gelly) 60%,
-              color-mix(in oklab, var(--gelly), black 16%) 100%);
-          color: white;
-          font-size: 1.125rem;
-          font-weight: 700;
-          letter-spacing: 0.01em;
-          transform-style: preserve-3d;
-          transform: translateY(-2px);
-          box-shadow:
-            0 8px 0 0 color-mix(in oklab, var(--gelly), black 40%),
-            0 24px 40px -16px rgba(0,0,0,0.5);
-          transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
-          user-select: none;
-          -webkit-tap-highlight-color: transparent;
-        }
-
-        .gelly-cta::before {
-          content: "";
-          position: absolute;
-          inset: 2px;
-          border-radius: inherit;
-          background: linear-gradient(
-            to bottom,
-            rgba(255,255,255,0.28),
-            rgba(255,255,255,0.02)
-          );
-          mix-blend-mode: screen;
-          pointer-events: none;
-          opacity: 0.9;
-        }
-
-        .gelly-cta:focus-visible {
-          outline: 3px solid color-mix(in oklab, var(--gelly), white 45%);
-          outline-offset: 4px;
-        }
-
-        .gelly-cta:hover:not(.gelly-cta--pressed) {
-          filter: saturate(1.08);
-          animation: gelly-jiggle 0.6s ease-in-out;
-        }
-
-        .gelly-cta:active {
-          transform: translateY(8px) scaleY(0.92) scaleX(0.98);
-          box-shadow:
-            0 6px 0 0 color-mix(in oklab, var(--gelly), black 42%),
-            0 14px 26px -18px rgba(0,0,0,0.55);
-        }
-
-        .gelly-cta__label {
-          position: relative;
-          z-index: 1;
-          transition: opacity 140ms ease, transform 240ms ease;
-        }
-
-        .gelly-cta--pressed {
-          animation: gelly-squish 520ms cubic-bezier(.2,.9,.2,1) both;
-          filter: saturate(1.25);
-        }
-
-        .gelly-cta--pressed:hover { 
-          animation: none; 
-        }
-
-        .gelly-cta--pressed .gelly-cta__label {
-          opacity: 0;
-          transform: translateY(6px) scale(0.94);
-        }
-
-        @keyframes gelly-squish {
-          0%   { transform: translateY(-2px) scale(1,1); border-radius: 16px; }
-          35%  { transform: translateY(10px) scale(1.08,0.72); border-radius: 28px 28px 18px 18px; }
-          62%  { transform: translateY(6px) scale(0.92,1.12); border-radius: 22px 22px 30px 30px; }
-          100% { transform: translateY(8px) scale(1,1); border-radius: 26px 26px 34px 34px; }
-        }
-
-        @keyframes gelly-star-wipe {
-          0% {
-            transform: translate3d(-50%, -55%, 0) scale(1);
-            opacity: 0.85;
-          }
-          100% {
-            transform: translate3d(-50%, -50%, 0) scale(15);
-            opacity: 1;
-          }
-        }
-
-        .gelly-bg-carousel {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-          overflow: hidden;
-          pointer-events: none;
-        }
-
-        .gelly-bg-row {
-          display: flex;
-          gap: 0;
-          width: max-content;
-          padding: 2rem 0;
-          will-change: transform;
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
-        }
-
-        .gelly-bg-row-set {
-          display: flex;
-          gap: 4rem;
-          padding-left: 4rem;
-          flex-shrink: 0;
-        }
-
-        .gelly-bg-logo {
-          width: 80px;
-          height: 80px;
-          opacity: 0.20;
-          flex-shrink: 0;
-        }
-
-        .gelly-bg-logo__svg {
-          width: 100%;
-          height: 100%;
-        }
-
-        .gelly-bg-row--left {
-          animation: gelly-carousel-left 40s linear infinite;
-        }
-
-        .gelly-bg-row--right {
-          animation: gelly-carousel-right 45s linear infinite;
-        }
-
-        @keyframes gelly-carousel-left {
-          0% {
-            transform: translate3d(0, 0, 0);
-          }
-          100% {
-            transform: translate3d(-50%, 0, 0);
-          }
-        }
-
-        @keyframes gelly-carousel-right {
-          0% {
-            transform: translate3d(-50%, 0, 0);
-          }
-          100% {
-            transform: translate3d(0, 0, 0);
-          }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .gelly-cta, .gelly-cta:hover, .gelly-cta--pressed { 
-            animation: none !important; 
-            transition: none !important; 
-          }
-          .gelly-subtitle { 
-            animation: none !important; 
-          }
-          .gelly-cta__label { 
-            transition: none !important; 
-          }
-          .gelly-logo--expanding { 
-            animation: none !important; 
-          }
-          .gelly-hero { 
-            transition: none !important; 
-          }
-          .gelly-bg-row--left,
-          .gelly-bg-row--right {
-            animation: none !important;
-          }
-        }
-
-        .gelly-footer {
-          position: fixed;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          z-index: 10;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 1.5rem;
-          transition: opacity 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .gelly-logo--expanding ~ .gelly-hero ~ .gelly-footer {
-          opacity: 0;
-        }
-
-        .gelly-footer__link {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.5rem;
-          color: rgba(255,255,255,0.7);
-          font-size: 0.875rem;
-          text-decoration: none;
-          transition: color 200ms ease, opacity 200ms ease;
-        }
-
-        .gelly-footer__link:hover {
-          color: rgba(255,255,255,0.9);
-        }
-
-        .gelly-footer__logo {
-          width: 20px;
-          height: 20px;
-          opacity: 0.8;
-          transition: opacity 200ms ease;
-        }
-
-        .gelly-footer__link:hover .gelly-footer__logo {
-          opacity: 1;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .gelly-footer {
-            transition: none !important;
-          }
-        }
-      `}</style>
-
       {/* Background Carousel */}
-      <div className="gelly-bg-carousel">
+      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         {Array.from({ length: 12 }).map((_, rowIndex) => {
           const isLeft = rowIndex % 2 === 0;
           return (
             <div
               key={rowIndex}
-              className={`gelly-bg-row ${isLeft ? "gelly-bg-row--left" : "gelly-bg-row--right"}`}
+              className={`gelly-bg-row flex gap-0 w-max py-8 ${isLeft ? "gelly-bg-row--left" : "gelly-bg-row--right"}`}
               style={{
                 animationDuration: `${35 + rowIndex * 2}s`,
               }}
             >
-              <div className="gelly-bg-row-set">
+              <div className="flex gap-16 pl-16 shrink-0">
                 {Array.from({ length: 20 }).map((_, logoIndex) => (
-                  <div key={logoIndex} className="gelly-bg-logo">
+                  <div
+                    key={logoIndex}
+                    className="w-20 h-20 opacity-20 shrink-0"
+                  >
                     {backgroundLogo}
                   </div>
                 ))}
               </div>
               {/* Duplicate for seamless loop */}
-              <div className="gelly-bg-row-set">
+              <div className="flex gap-16 pl-16 shrink-0">
                 {Array.from({ length: 20 }).map((_, logoIndex) => (
-                  <div key={`dup-${logoIndex}`} className="gelly-bg-logo">
+                  <div
+                    key={`dup-${logoIndex}`}
+                    className="w-20 h-20 opacity-20 shrink-0"
+                  >
                     {backgroundLogo}
                   </div>
                 ))}
@@ -446,18 +147,18 @@ export default function () {
       </div>
 
       {/* Hero Section */}
-      <section className="gelly-page flex items-center justify-center min-h-[100dvh]">
+      <section className="relative text-white/92 flex items-center justify-center min-h-[100dvh]">
         <div
-          className={`gelly-logo ${phase === "pressed" ? "gelly-logo--expanding" : ""}`}
+          className={`gelly-logo fixed w-[480px] h-[480px] left-1/2 top-1/2 opacity-85 z-0 origin-center ${phase === "pressed" ? "gelly-logo--expanding z-[9999]" : ""}`}
           aria-hidden="true"
         >
           {jellySvgLogo}
         </div>
-        <div className="gelly-hero mx-auto max-w-4xl text-center flex flex-col gap-6 min-h-[100dvh] justify-center">
+        <div className="gelly-hero relative z-10 mx-auto max-w-4xl text-center flex flex-col gap-6 min-h-[100dvh] justify-center">
           <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight text-center">
-            It's cool to be Gelly
+            gelly.fish like a pro
           </h1>
-          <p className="gelly-subtitle text-xl md:text-2xl max-w-2xl mx-auto">
+          <p className="text-white/82 text-xl md:text-2xl max-w-2xl mx-auto [text-shadow:0_10px_30px_rgba(0,0,0,0.35)]">
             <span className="font-semibold">Learn Gelly</span> through
             interactive tutorials
           </p>
@@ -468,12 +169,14 @@ export default function () {
             >
               <button
                 type="button"
-                className={`gelly-cta ${phase === "pressed" ? "gelly-cta--pressed" : ""}`}
+                className={`gelly-cta relative inline-flex items-center justify-center gap-2 py-[0.9rem] px-5 rounded-2xl text-white text-[1.125rem] font-bold tracking-[0.01em] select-none -translate-y-0.5 ${phase === "pressed" ? "gelly-cta--pressed" : ""}`}
                 onClick={() => setPhase("pressed")}
                 aria-label="Get wigglin' (start tutorial)"
                 disabled={phase === "pressed"}
               >
-                <span className="gelly-cta__label">Get jigglin'</span>
+                <span className="gelly-cta__label relative z-10">
+                  Get jigglin'
+                </span>
               </button>
             </Button>
           </div>
@@ -481,15 +184,19 @@ export default function () {
       </section>
 
       {/* Footer */}
-      <footer className="gelly-footer">
+      <footer className="fixed bottom-0 left-0 right-0 z-10 flex items-center justify-center p-6 gelly-footer">
         <a
           href="https://gadget.dev"
           target="_blank"
           rel="noopener noreferrer"
-          className="gelly-footer__link"
+          className="flex items-center justify-center gap-2 text-white/70 text-sm no-underline transition-colors hover:text-white/90"
         >
           <span>Built with</span>
-          <img src="/gadget.svg" alt="Gadget" className="gelly-footer__logo" />
+          <img
+            src="/gadget.svg"
+            alt="Gadget"
+            className="w-5 h-5 opacity-80 transition-opacity hover:opacity-100"
+          />
           <span>Gadget</span>
         </a>
       </footer>
