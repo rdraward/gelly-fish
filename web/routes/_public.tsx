@@ -11,7 +11,15 @@
 // --------------------------------------------------------------------------------------
 
 import { Link, Outlet, useLocation, useOutletContext } from "react-router";
+import { useSignOut } from "@gadgetinc/react";
+import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { UserIcon } from "@/components/shared/UserIcon";
 import { Navigation } from "@/components/public/nav";
 import type { Route } from "./+types/_public";
@@ -35,6 +43,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
   const context = useOutletContext<RootOutletContext>();
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const signOut = useSignOut({ redirectToPath: "/" });
 
   return (
     <ProgressProvider userId={user?.id}>
@@ -46,17 +55,26 @@ export default function ({ loaderData }: Route.ComponentProps) {
 
               <div className="flex items-center space-x-2">
                 {user ? (
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    className="p-2 rounded-full text-white"
-                    asChild
-                  >
-                    <Link to="/challenge/1">
-                      Go to app
-                      <UserIcon user={user} />
-                    </Link>
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="lg"
+                        className="p-2 rounded-full text-white"
+                      >
+                        <UserIcon user={user} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56">
+                      <DropdownMenuItem
+                        onClick={signOut}
+                        className="flex items-center text-red-600 focus:text-red-600 cursor-pointer"
+                      >
+                        <LogOut className="mr-2 h-4 w-4" />
+                        Sign out
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 ) : (
                   <>
                     <Button size="sm" variant="outline" asChild>
