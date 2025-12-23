@@ -38,7 +38,7 @@ export const NumberedCircle = ({
       style={{ width: size, height: size }}
     >
       {showCheckmark ? (
-        <Check className="h-3 w-3" />
+        <Check className="h-3 w-3 text-white" />
       ) : (
         <span className="text-sm font-bold">{number}</span>
       )}

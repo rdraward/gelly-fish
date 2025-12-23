@@ -47,7 +47,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
   const { gadgetConfig, csrfToken } = loaderData;
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Meta />
         <Links />

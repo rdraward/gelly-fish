@@ -229,6 +229,9 @@ export function SchemaModal({
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">Model schemas</DialogTitle>
         </DialogHeader>
+        <p className="text-sm text-muted-foreground mt-2">
+          This is the shape of the data you can query.
+        </p>
         <div className="mt-4 space-y-6 min-h-[300px]">
           {loading && (
             <div className="space-y-6">

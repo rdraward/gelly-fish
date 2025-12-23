@@ -51,7 +51,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-col h-screen overflow-hidden">
         <nav className={`shrink-0`}>
           <div className="mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16 items-center">
+            <div className="flex justify-between pt-4 items-center">
               <Navigation />
 
               <div className="flex items-center space-x-2">
