@@ -174,7 +174,7 @@ export function TutorialView({
   return (
     <div className="flex flex-col w-full max-w-full h-full overflow-hidden">
       {/* Main Content Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 p-4 overflow-hidden min-h-0 relative">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-2 p-4 overflow-hidden min-h-0 relative">
         {/* Top Left: Instructions Panel */}
         <InstructionsPanel
           challenge={challenge}

@@ -25,7 +25,7 @@ export const links = () => [
 export const meta = () => [
   { charset: "utf-8" },
   { name: "viewport", content: "width=device-width, initial-scale=1" },
-  { title: "Gelly Wiggle - Learn Gelly" },
+  { title: "gelly.fish - Interactive Gelly tutorial" },
 ];
 
 export type RootOutletContext = {

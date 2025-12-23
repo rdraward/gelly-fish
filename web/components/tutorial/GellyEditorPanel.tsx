@@ -51,11 +51,10 @@ export function GellyEditorPanel({
             value={gellyCode}
             onChange={(e) => onCodeChange(e.target.value)}
             placeholder="-- Enter your Gelly query here&#10;-- view { <your query> }"
-            className={`h-full font-mono text-base resize-none transition-colors duration-300 ${
-              showSolutionFlash
+            className={`h-full font-mono text-base resize-none transition-colors duration-300 ${showSolutionFlash
                 ? "border-green-500/30 ring-2 ring-green-500/20"
                 : ""
-            }`}
+              }`}
           />
         </div>
         {showHint && (
