@@ -230,7 +230,7 @@ export function SchemaModal({
           <DialogTitle className="text-xl font-bold">Model schemas</DialogTitle>
         </DialogHeader>
         <p className="text-sm text-muted-foreground mt-2">
-          This is the shape of the data you can query.
+          These are the data models and fields you can read using Gelly.
         </p>
         <div className="mt-4 space-y-6 min-h-[300px]">
           {loading && (
