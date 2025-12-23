@@ -6,7 +6,11 @@ import { GellyEditorPanel } from "./GellyEditorPanel";
 import { QueryOutputPanel } from "./QueryOutputPanel";
 import { CompletionOverlay } from "./CompletionOverlay";
 import { SchemaModal } from "./SchemaModal";
-import { normalizeForCompare, parseExpectedValue } from "./utils";
+import {
+  normalizeForCompare,
+  parseExpectedValue,
+  compareValuesSemantically,
+} from "./utils";
 import { useProgress } from "@/lib/progress-context";
 
 interface Challenge {
@@ -80,9 +84,15 @@ export function TutorialView({
       const queryMatchesSolution =
         normalizeForCompare(gellyCode) ===
         normalizeForCompare(challenge.solution);
-      const outputMatchesExpected =
-        normalizeForCompare(response) ===
-        normalizeForCompare(parseExpectedValue(challenge.expectedOutput));
+
+      // Use semantic comparison to handle different response structures
+      // that return the same data (e.g., different query shapes)
+      const expectedValue = parseExpectedValue(challenge.expectedOutput);
+      const outputMatchesExpected = compareValuesSemantically(
+        response,
+        expectedValue
+      );
+
       const passed = queryMatchesSolution || outputMatchesExpected;
 
       setIsComplete(passed);
@@ -101,7 +111,7 @@ export function TutorialView({
         passed,
         message: passed
           ? "✅ Correct! Your result matches the expected output."
-          : "Not quite yet — your output doesn’t match the expected output.",
+          : "Not quite yet — your output doesn't match the expected output.",
       });
     } catch (err: any) {
       const message = err?.message ? String(err.message) : "Unknown error";
