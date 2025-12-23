@@ -5,6 +5,7 @@ import { api } from "./api";
 import "./app.css";
 import { ProductionErrorBoundary, DevelopmentErrorBoundary } from "gadget-server/react-router";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/lib/theme-context";
 import type { GadgetConfig } from "gadget-server";
 import type { Route } from "./+types/root";
 
@@ -46,19 +47,34 @@ export default function App({ loaderData }: Route.ComponentProps) {
   const { gadgetConfig, csrfToken } = loaderData;
 
   return (
-    <html lang="en" className="light">
+    <html lang="en">
       <head>
         <Meta />
         <Links />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                const theme = localStorage.getItem('gelly-wiggle-theme') || 'system';
+                const resolvedTheme = theme === 'system' 
+                  ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+                  : theme;
+                document.documentElement.classList.add(resolvedTheme);
+              })();
+            `,
+          }}
+        />
         {!isProduction && <script type="module" src="/@vite/client" async />}
       </head>
       <body>
-        <Suspense>
-          <GadgetProvider api={api}>
-            <Outlet context={{ gadgetConfig, csrfToken }} />
-            <Toaster richColors />
-          </GadgetProvider>
-        </Suspense>
+        <ThemeProvider>
+          <Suspense>
+            <GadgetProvider api={api}>
+              <Outlet context={{ gadgetConfig, csrfToken }} />
+              <Toaster richColors />
+            </GadgetProvider>
+          </Suspense>
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

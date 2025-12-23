@@ -27,6 +27,7 @@ import { useSignOut } from "@gadgetinc/react";
 import { NavDrawer } from "@/components/shared/NavDrawer";
 import { GellyLogo } from "@/components/shared/GellyLogo";
 import { NumberedCircle } from "@/components/shared/NumberedCircle";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Home, User, LogOut, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

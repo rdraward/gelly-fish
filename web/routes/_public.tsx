@@ -21,6 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { UserIcon } from "@/components/shared/UserIcon";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Navigation } from "@/components/public/nav";
 import type { Route } from "./+types/_public";
 import type { RootOutletContext } from "../root";
@@ -54,6 +55,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
               <Navigation />
 
               <div className="flex items-center space-x-2">
+                <ThemeToggle />
                 {user ? (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>

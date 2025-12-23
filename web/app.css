@@ -145,7 +145,7 @@ body {
   background:
     radial-gradient(
       900px 700px at 20% 10%,
-      color-mix(in oklab, #9260d2, white 18%) 0%,
+      rgba(146, 96, 210, 0.22) 0%,
       rgba(146, 96, 210, 0.18) 35%,
       transparent 70%
     ),
@@ -169,6 +169,35 @@ body {
     );
   background-attachment: fixed;
   overflow-x: hidden;
+}
+
+.dark body {
+  /* Dark mode gelly background - more subtle and darker */
+  background:
+    radial-gradient(
+      900px 700px at 20% 10%,
+      rgba(146, 96, 210, 0.15) 0%,
+      rgba(146, 96, 210, 0.1) 35%,
+      transparent 70%
+    ),
+    radial-gradient(
+      800px 650px at 80% 15%,
+      rgba(146, 96, 210, 0.15) 0%,
+      rgba(146, 96, 210, 0.08) 35%,
+      transparent 72%
+    ),
+    radial-gradient(
+      900px 750px at 55% 85%,
+      rgba(146, 96, 210, 0.15) 0%,
+      rgba(146, 96, 210, 0.06) 40%,
+      transparent 75%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, #9260d2, black 45%) 0%,
+      color-mix(in oklab, #9260d2, black 50%) 40%,
+      color-mix(in oklab, #9260d2, black 55%) 100%
+    );
 }
 
 body::before,
@@ -198,6 +227,28 @@ body::after {
   opacity: 0.95;
   transform-origin: center;
   animation: gelly-float 6.5s ease-in-out infinite;
+}
+
+.dark body::before,
+.dark body::after {
+  /* Dark mode overlay - more subtle white highlights */
+  background:
+    radial-gradient(
+      closest-side at 30% 30%,
+      rgba(255, 255, 255, 0.03),
+      transparent 70%
+    ),
+    radial-gradient(
+      closest-side at 70% 40%,
+      rgba(255, 255, 255, 0.025),
+      transparent 72%
+    ),
+    radial-gradient(
+      closest-side at 45% 80%,
+      rgba(255, 255, 255, 0.02),
+      transparent 70%
+    );
+  opacity: 0.85;
 }
 
 body::after {

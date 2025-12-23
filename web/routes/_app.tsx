@@ -16,6 +16,7 @@ import {
   MobileNav,
   SecondaryNavigation,
 } from "@/components/app/nav";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Outlet, redirect, useOutletContext } from "react-router";
 import type { RootOutletContext } from "../root";
 import type { Route } from "./+types/_app";
@@ -53,7 +54,8 @@ export default function ({ loaderData }: Route.ComponentProps) {
         <div className="flex-1 flex flex-col md:pl-64 min-w-0">
           <header className="h-16 flex items-center justify-between px-6 border-b bg-background z-10 w-full">
             <MobileNav user={user} />
-            <div className="ml-auto">
+            <div className="ml-auto flex items-center gap-2">
+              <ThemeToggle />
               <SecondaryNavigation
                 icon={
                   <>
