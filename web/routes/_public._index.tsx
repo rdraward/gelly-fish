@@ -129,7 +129,7 @@ export default function () {
             >
               <button
                 type="button"
-                className={`gelly-cta relative inline-flex items-center justify-center gap-2 py-[0.9rem] px-5 rounded-2xl text-white text-[1.125rem] font-bold tracking-[0.01em] select-none -translate-y-0.5 ${phase === "pressed" ? "gelly-cta--pressed" : ""}`}
+                className={`gelly-cta relative inline-flex items-center justify-center gap-2 py-[0.9rem] px-5 rounded-2xl text-[1.125rem] font-bold tracking-[0.01em] select-none -translate-y-0.5 ${phase === "pressed" ? "gelly-cta--pressed" : ""}`}
                 onClick={() => setPhase("pressed")}
                 aria-label="Get wigglin' (start tutorial)"
                 disabled={phase === "pressed"}
