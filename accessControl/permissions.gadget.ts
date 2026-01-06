@@ -19,6 +19,32 @@ export const permissions: GadgetPermissions = {
         challenge: {
           read: true,
         },
+        food: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
+        foodChain: {
+          read: {
+            filter: "accessControl/filters/foodChain/tenant.gelly",
+          },
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
+        home: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
         jellyfish: {
           read: true,
         },
@@ -48,6 +74,9 @@ export const permissions: GadgetPermissions = {
             },
           },
         },
+      },
+      actions: {
+        rel: true,
       },
     },
     unauthenticated: {

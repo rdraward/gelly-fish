@@ -1,0 +1,7 @@
+view {
+  jellyfishes {
+    name
+    length
+    [order by length]
+  }
+}

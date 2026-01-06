@@ -14,6 +14,21 @@ export const schema: GadgetModel = {
       storageKey: "cIzG20rsUBTa",
       searchIndex: false,
     },
+    foods: {
+      type: "hasManyThrough",
+      sibling: { model: "food", relatedField: "jellyfish" },
+      join: {
+        model: "foodChain",
+        belongsToSelfField: "jellyfish",
+        belongsToSiblingField: "food",
+      },
+      storageKey: "VLaRTmp-wR7c",
+    },
+    homes: {
+      type: "hasMany",
+      children: { model: "home", belongsToField: "jellyfish" },
+      storageKey: "06tBY7M9FO6g",
+    },
     length: {
       type: "number",
       validations: { required: true },
@@ -27,6 +42,8 @@ export const schema: GadgetModel = {
         stringLength: { min: null, max: 80 },
       },
       storageKey: "H57Y5fh4_QXM",
+      filterIndex: false,
+      searchIndex: false,
     },
     type: {
       type: "string",
@@ -35,6 +52,7 @@ export const schema: GadgetModel = {
         stringLength: { min: null, max: 80 },
       },
       storageKey: "KgGJiW-k0d4Q",
+      searchIndex: false,
     },
     weight: {
       type: "number",
@@ -43,4 +61,5 @@ export const schema: GadgetModel = {
       searchIndex: false,
     },
   },
+  searchIndex: false,
 };

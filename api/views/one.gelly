@@ -1,0 +1,6 @@
+view { 
+  jellyfishes {
+    id
+    name
+  }
+}

@@ -1,0 +1,9 @@
+view {
+  jellyfishes {
+    foods {
+      name
+      type
+    }
+    [where count(foods) > 0] 
+  }
+}

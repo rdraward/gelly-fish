@@ -11,22 +11,27 @@ export const schema: GadgetModel = {
       type: "belongsTo",
       parent: { model: "challenge" },
       storageKey: "W7LdpRHzMosv",
+      searchIndex: false,
     },
     isComplete: {
       type: "boolean",
       default: false,
       validations: { required: true },
       storageKey: "SElQhOKYzZin",
+      searchIndex: false,
     },
     solution: {
       type: "string",
       validations: { required: true },
       storageKey: "TomQWiM6j2pm",
+      searchIndex: false,
     },
     user: {
       type: "belongsTo",
       parent: { model: "user" },
       storageKey: "66NPqDdN4iNI-BelongsTo-User",
+      searchIndex: false,
     },
   },
+  searchIndex: false,
 };

@@ -1,0 +1,7 @@
+view {
+  jellyfishes {
+    name
+    length
+    [limit 3]
+  }
+}

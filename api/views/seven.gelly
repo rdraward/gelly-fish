@@ -1,0 +1,7 @@
+view {
+  jellyfishes {
+    name
+    age
+    [where age > 3]
+  }
+}
