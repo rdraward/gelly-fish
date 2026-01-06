@@ -1,3 +1,0 @@
-filter ($user: User, $session: Session) on FoodChain [
-  where userId == $user.id
-]

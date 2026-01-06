@@ -1,0 +1,5 @@
+view { 
+  jellyfishes {
+     title: concat([name, " the ", type])
+  }
+}

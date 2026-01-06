@@ -11,39 +11,18 @@ export const permissions: GadgetPermissions = {
   roles: {
     "signed-in": {
       storageKey: "signed-in",
-      default: {
-        read: true,
-        action: true,
-      },
       models: {
         challenge: {
           read: true,
         },
         food: {
           read: true,
-          actions: {
-            create: true,
-            delete: true,
-            update: true,
-          },
         },
         foodChain: {
-          read: {
-            filter: "accessControl/filters/foodChain/tenant.gelly",
-          },
-          actions: {
-            create: true,
-            delete: true,
-            update: true,
-          },
+          read: true,
         },
         home: {
           read: true,
-          actions: {
-            create: true,
-            delete: true,
-            update: true,
-          },
         },
         jellyfish: {
           read: true,
@@ -75,14 +54,20 @@ export const permissions: GadgetPermissions = {
           },
         },
       },
-      actions: {
-        rel: true,
-      },
     },
     unauthenticated: {
       storageKey: "unauthenticated",
       models: {
         challenge: {
+          read: true,
+        },
+        food: {
+          read: true,
+        },
+        foodChain: {
+          read: true,
+        },
+        home: {
           read: true,
         },
         jellyfish: {

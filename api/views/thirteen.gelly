@@ -1,0 +1,8 @@
+view {
+  jellyfishes {
+    avg(length)
+    avg(weight)
+    isPeopleEater: some(foodChains.food.name == "people")
+    [group by isPeopleEater] 
+  }
+}

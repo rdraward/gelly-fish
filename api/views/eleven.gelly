@@ -1,0 +1,12 @@
+view {
+  jellyfishes {
+    name
+    foodChains {
+      food {
+        name
+        category
+      }
+    }
+    [where some(foodChains.food.name == "people")]
+  }
+}

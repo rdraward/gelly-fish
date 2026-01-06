@@ -11,16 +11,12 @@ export const schema: GadgetModel = {
       type: "belongsTo",
       parent: { model: "food" },
       storageKey: "WWYaW4YTLNP_",
+      searchIndex: false,
     },
     jellyfish: {
       type: "belongsTo",
       parent: { model: "jellyfish" },
       storageKey: "p4IFZSrOR9-Q",
-    },
-    user: {
-      type: "belongsTo",
-      parent: { model: "user" },
-      storageKey: "XGGwQX2tNU3x-BelongsTo-User",
     },
   },
 };

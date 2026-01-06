@@ -1,0 +1,11 @@
+view {
+  jellyfishes {
+    name
+    foodChains {
+      food {
+        name
+        category
+      }
+    }
+  }
+}
