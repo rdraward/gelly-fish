@@ -1,3 +1,8 @@
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
 view {
   jellyfishes {
     avg(length)
@@ -6,3 +11,6 @@ view {
     [group by isPeopleEater] 
   }
 }
+
+// hint:
+// hint link:

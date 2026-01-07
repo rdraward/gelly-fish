@@ -1,1 +1,11 @@
-view { count(jellyfishes, where: jellyfishes.age > 3) }
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
+view { 
+    count(jellyfishes, where: jellyfishes.age > 3) 
+}
+
+// hint:
+// hint link:

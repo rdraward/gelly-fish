@@ -1,3 +1,8 @@
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
 view {
   jellyfishes {
     name
@@ -5,3 +10,6 @@ view {
     [order by length]
   }
 }
+
+// hint:
+// hint link:

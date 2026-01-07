@@ -1,3 +1,8 @@
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
 view {
   jellyfishes {
     name
@@ -10,3 +15,6 @@ view {
     [where some(foodChains.food.name == "people")]
   }
 }
+
+// hint:
+// hint link:

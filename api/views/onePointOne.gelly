@@ -1,5 +1,13 @@
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
 view { 
   jellyfishes {
      title: concat([name, " the ", type])
   }
 }
+
+// hint:
+// hint link:

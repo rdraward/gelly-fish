@@ -1,3 +1,8 @@
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
 view {
   jellyfishes {
     name
@@ -8,3 +13,6 @@ view {
     [where count(homes) > 1] 
   }
 }
+
+// hint:
+// hint link:

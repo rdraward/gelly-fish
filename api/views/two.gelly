@@ -1,1 +1,11 @@
-view { count(jellyfishes) }
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
+view { 
+    count(jellyfishes) 
+}
+
+// hint:
+// hint link:

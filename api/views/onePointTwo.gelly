@@ -1,3 +1,8 @@
+// title:
+// backstory: 
+// prompt: 
+
+// solution:
 view { 
   jellyfishes {
      name
@@ -6,3 +11,6 @@ view {
      status: length > 15 && weight > 1.25 ? "big" : "small" 
   }
 }
+
+// hint:
+// hint link:

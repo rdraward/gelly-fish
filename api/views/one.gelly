@@ -1,6 +1,14 @@
+// title: ONE - Look ma, jellyfish
+// backstory: 
+// prompt: 
+
+// solution:
 view { 
   jellyfishes {
     id
     name
   }
 }
+
+// hint:
+// hint link:

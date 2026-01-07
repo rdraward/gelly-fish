@@ -17,6 +17,8 @@ export const schema: GadgetModel = {
       type: "belongsTo",
       parent: { model: "jellyfish" },
       storageKey: "p4IFZSrOR9-Q",
+      searchIndex: false,
     },
   },
+  searchIndex: false,
 };
