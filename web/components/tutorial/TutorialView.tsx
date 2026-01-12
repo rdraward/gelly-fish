@@ -225,11 +225,7 @@ export function TutorialView({
         />
       </div>
       {/* Schema Modal */}
-      <SchemaModal
-        open={showSchemaModal}
-        onOpenChange={setShowSchemaModal}
-        modelNames={["jellyfish"]}
-      />
+      <SchemaModal open={showSchemaModal} onOpenChange={setShowSchemaModal} />
     </div>
   );
 }
