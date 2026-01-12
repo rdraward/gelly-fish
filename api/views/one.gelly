@@ -1,6 +1,6 @@
 // title: ONE - Look ma, jellyfish
-// backstory: 
-// prompt: 
+// backstory: Hello there, I'm Elderberry, the english-speaking jellyfish. Welcome to the annual jellyfish watching competition! You will learn totally real, definitely not made up facts about jellyfish, while exploring the vast ocean that is the Gelly expression language. First off, let's introduce the stars of our show: the jellies!
+// prompt: Write a computed view to read all the records in the jellyfish model.
 
 // solution:
 view { 
@@ -10,5 +10,5 @@ view {
   }
 }
 
-// hint:
-// hint link:
+// hint: Start with `view { }`. Click the **Schema** button for model info.
+// hint link: https://docs.gadget.dev/guides/data-access/computed-views#snippet-syntax

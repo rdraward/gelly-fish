@@ -1,11 +1,11 @@
-// title:
-// backstory: 
-// prompt: 
+// title: The old jelly and the sea
+// backstory: Some species of jellyfish only live for months, others can live FOREVER. Try counting them again, but this time only the senior jellies.
+// prompt: Count all of the jellyfish who are older than 3.
 
 // solution:
 view { 
     count(jellyfishes, where: jellyfishes.age > 3) 
 }
 
-// hint:
-// hint link:
+// hint: You can add conditions to Gelly aggregations.
+// hint link: https://docs.gadget.dev/reference/gelly#the-where-argument

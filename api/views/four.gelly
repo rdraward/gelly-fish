@@ -1,6 +1,6 @@
-// title:
-// backstory: 
-// prompt: 
+// title:  Get your jellies in a row
+// backstory: It can be tough to wrangle jellyfish, them being gelatinous beings and all. But when it's time for a group picture, it's important to know who is the longest so they can be placed in the back.
+// prompt: Sort the jellyfish by length, displaying both their names and length.
 
 // solution:
 view {
@@ -11,5 +11,5 @@ view {
   }
 }
 
-// hint:
-// hint link:
+// hint: Gelly has relational commands that might help with sorting.
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#order-by

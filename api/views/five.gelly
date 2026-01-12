@@ -1,15 +1,14 @@
-// title:
-// backstory: 
-// prompt: 
+// title: Whoa nelly, not too much jelly
+// backstory: Turns out we can't get everyone in the group photo. These jellyfish just won't stay still! Try taking a picture with just 3 of the jellies.
+// prompt: Query for the name of 3 jellyfish.
 
 // solution:
 view {
   jellyfishes {
     name
-    length
     [limit 3]
   }
 }
 
-// hint:
-// hint link:
+// hint: Gelly has commands for limiting the number of returned results.
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#limit

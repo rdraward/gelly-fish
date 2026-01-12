@@ -1,11 +1,11 @@
-// title:
-// backstory: 
-// prompt: 
+// title: Seaside census
+// backstory: It can be tough to get an exact count of jellyfish, they travel in single file to hide their numbers. Maybe there's another way you can count all the jellies?
+// prompt: Get a total count of the number of jellyfish records.
 
 // solution:
 view { 
     count(jellyfishes) 
 }
 
-// hint:
-// hint link:
+// hint: Gelly also has built-in data aggregation functions.
+// hint link: https://docs.gadget.dev/reference/gelly#count-value-any-where-boolean-integer
