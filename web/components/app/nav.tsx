@@ -121,8 +121,8 @@ export const Navigation = ({
   );
   const challengeData = challengeMatch?.data as
     | {
-        levels?: Array<{ id: string; number: number }>;
-        challenge?: { id: string };
+        levels?: Array<{ id: string; challengeId: number }>;
+        challenge?: { id: string; challengeId: number };
       }
     | undefined;
   const levels = challengeData?.levels;
@@ -133,11 +133,11 @@ export const Navigation = ({
     e.preventDefault();
     try {
       const challenges = await api.challenge.findMany({
-        sort: { createdAt: "Ascending" },
+        sort: { challengeId: "Ascending" },
         first: 1,
       });
       if (challenges.length > 0) {
-        navigate(`/challenge/${challenges[0].id}`);
+        navigate(`/challenge/${challenges[0].challengeId}`);
         onLinkClick?.();
       }
     } catch (error) {
@@ -163,13 +163,13 @@ export const Navigation = ({
               return (
                 <Link
                   key={lvl.id}
-                  to={`/challenge/${lvl.id}`}
+                  to={`/challenge/${lvl.challengeId}`}
                   aria-current={isActive ? "page" : undefined}
                   className="inline-block shrink-0"
                   onClick={onLinkClick}
                 >
                   <NumberedCircle
-                    number={lvl.number}
+                    number={lvl.challengeId}
                     isActive={isActive}
                     isCompleted={isCompleted}
                   />

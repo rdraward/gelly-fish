@@ -16,11 +16,12 @@ export default function () {
     const navT = window.setTimeout(async () => {
       try {
         const challenges = await api.challenge.findMany({
-          sort: { createdAt: "Ascending" },
+          sort: { challengeId: "Ascending" },
           first: 1,
         });
         if (challenges.length > 0) {
-          navigate(`/challenge/${challenges[0].id}`);
+          // Use the numeric challengeId for routing
+          navigate(`/challenge/${challenges[0].challengeId}`);
         }
       } catch (error) {
         console.error("Failed to fetch first challenge:", error);

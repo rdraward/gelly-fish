@@ -64,8 +64,8 @@ export const Navigation = () => {
   );
   const challengeData = challengeMatch?.data as
     | {
-        levels?: Array<{ id: string; number: number }>;
-        challenge?: { id: string };
+        levels?: Array<{ id: string; challengeId: number }>;
+        challenge?: { id: string; challengeId: number };
       }
     | undefined;
   const levels = challengeData?.levels;
@@ -88,12 +88,12 @@ export const Navigation = () => {
             return (
               <Link
                 key={lvl.id}
-                to={`/challenge/${lvl.id}`}
+                to={`/challenge/${lvl.challengeId}`}
                 aria-current={isActive ? "page" : undefined}
                 className="inline-block shrink-0"
               >
                 <NumberedCircle
-                  number={lvl.number}
+                  number={lvl.challengeId}
                   isActive={isActive}
                   isCompleted={isCompleted}
                 />

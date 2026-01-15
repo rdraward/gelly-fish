@@ -1,11 +1,13 @@
-// title: Seaside census
-// backstory: It can be tough to get an exact count of jellyfish, they travel in single file to hide their numbers. Maybe there's another way you can count all the jellies?
-// prompt: Get a total count of the number of jellyfish records.
+// title: Formal introductions
+// backstory: When referring to jellyfish, it is best to use their full name, which includes their species as a suffix. Bonus: this cuts down on the confusion between the two "Grapes". I am "Elderberry the Immortal". 
+// prompt: Concatenate the jellyfish name and type, and return the result as title.
 
 // solution:
 view { 
-  count(jellyfishes)
+  jellyfishes {
+     title: concat([name, " the ", type])
+  }
 }
 
-// hint: Gelly also has built-in data aggregation functions.
-// hint link: https://docs.gadget.dev/reference/gelly#count-value-any-where-boolean-integer
+// hint: Gelly has built-in functions for manipulating strings, and results can be aliased.
+// hint link: https://docs.gadget.dev/reference/gelly#concat-string-string-delimiter-string-string

@@ -1,14 +1,18 @@
-// title: Nobody is safe
-// backstory: To jellyfish, man is the most dangerous game of all. Find out what jellyfish have grown accustomed to the taste of human flesh.
-// prompt: Get a the names of man-eating jellyfish.
+// title: Reef-ers only
+// backstory: Some jellyfish prefer the open sea and don't settle down. We can let them be the free-spritied hippies that they are, let's exclude them from our list of jellyfish who live in reefs.
+// prompt: Find the names, reef addresses, and ocean of jellyfish who have a home.
 
 // solution:
 view {
   jellyfishes {
     name
-    [where some(foodChains.food.name == "people")]
+    homes {
+      reefAddress
+      ocean
+    }
+    [where count(homes) > 1] 
   }
 }
 
-// hint: Gelly queries can filter results using aggregation functions across relationships.
-// hint link: https://docs.gadget.dev/reference/gelly#some-where-boolean-boolean
+// hint: Relational commands can also work across relationships.
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#where
