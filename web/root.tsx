@@ -55,7 +55,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                const theme = localStorage.getItem('gelly-wiggle-theme') || 'system';
+                const theme = localStorage.getItem('gelly-fish-theme') || 'system';
                 const resolvedTheme = theme === 'system' 
                   ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
                   : theme;

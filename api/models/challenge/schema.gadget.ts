@@ -23,6 +23,7 @@ export const schema: GadgetModel = {
         unique: true,
       },
       storageKey: "S8Jlgq5fRgVm",
+      searchIndex: false,
     },
     hint: {
       type: "string",
@@ -77,4 +78,5 @@ export const schema: GadgetModel = {
       searchIndex: false,
     },
   },
+  searchIndex: false,
 };
