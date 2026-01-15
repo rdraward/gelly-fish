@@ -17,6 +17,20 @@ export const loader = async ({ params, context }: Route.LoaderArgs) => {
     throw new Response("Challenge not found", { status: 404 });
   }
 
+  // Fetch the expected output by running the named view
+  let expectedOutput: string = "";
+  if (challenge.viewName) {
+    try {
+      const viewFn = context.api[challenge.viewName as keyof typeof context.api];
+      if (typeof viewFn === "function") {
+        const result = await (viewFn as () => Promise<unknown>)();
+        expectedOutput = JSON.stringify(result, null, 2);
+      }
+    } catch (err) {
+      console.error(`Failed to fetch expected output from view "${challenge.viewName}":`, err);
+    }
+  }
+
   // Get all challenges sorted by challengeId
   const allChallenges = await context.api.challenge.findMany({
     sort: { challengeId: "Ascending" },
@@ -28,6 +42,7 @@ export const loader = async ({ params, context }: Route.LoaderArgs) => {
 
   return {
     challenge,
+    expectedOutput,
     challengeNumber: challenge.challengeId,
     totalChallenges: allChallenges.length,
     levels: allChallenges.map((c: any) => ({
@@ -39,7 +54,7 @@ export const loader = async ({ params, context }: Route.LoaderArgs) => {
 };
 
 export default function TutorialChallenge({ loaderData }: Route.ComponentProps) {
-  const { challenge, challengeNumber, totalChallenges, levels, user } = loaderData;
+  const { challenge, expectedOutput, challengeNumber, totalChallenges, levels, user } = loaderData;
 
   return (
     <div className="h-full overflow-hidden flex flex-col">
@@ -55,7 +70,7 @@ export default function TutorialChallenge({ loaderData }: Route.ComponentProps) 
             hint: challenge.hint,
             hintLink: challenge.hintLink,
             solution: challenge.solution,
-            expectedOutput: challenge.expectedOutput,
+            expectedOutput,
           }}
           challengeNumber={challengeNumber}
           totalChallenges={totalChallenges}

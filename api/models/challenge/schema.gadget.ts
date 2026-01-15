@@ -24,12 +24,6 @@ export const schema: GadgetModel = {
       },
       storageKey: "S8Jlgq5fRgVm",
     },
-    expectedOutput: {
-      type: "string",
-      storageKey: "AKsD19zOY5l8",
-      filterIndex: false,
-      searchIndex: false,
-    },
     hint: {
       type: "string",
       validations: { required: true },
@@ -74,6 +68,13 @@ export const schema: GadgetModel = {
         belongsToSiblingField: "user",
       },
       storageKey: "3rIZ6JBBaxK_",
+    },
+    viewName: {
+      type: "string",
+      validations: { required: true },
+      storageKey: "viewName_field",
+      filterIndex: false,
+      searchIndex: false,
     },
   },
 };
