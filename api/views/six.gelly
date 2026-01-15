@@ -1,6 +1,6 @@
 // title: Long jellies only
-// backstory: Taking a picture of only 3 jellies worked, but it turned out you just got the first 3 jellyfish in line. They're all different lengths and don't fit in the frame! Try taking a picture of the 3 longest jellyfish instead.
-// prompt: 
+// backstory: Taking a picture of only 3 jellies worked, but it turned out you just got the first 3 jellyfish in line. They're all different lengths and don't fit in the frame! Try taking a picture of just the longest jellyfish instead.
+// prompt: Query for the name and length of jellyfish, and only return the 3 with the greatest length.
 
 // solution:
 view {

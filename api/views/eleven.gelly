@@ -1,20 +1,14 @@
-// title:
-// backstory: 
-// prompt: 
+// title: Nobody is safe
+// backstory: To jellyfish, man is the most dangerous game of all. Find out what jellyfish have grown accustomed to the taste of human flesh.
+// prompt: Get a the names of man-eating jellyfish.
 
 // solution:
 view {
   jellyfishes {
     name
-    foodChains {
-      food {
-        name
-        category
-      }
-    }
     [where some(foodChains.food.name == "people")]
   }
 }
 
-// hint:
-// hint link:
+// hint: Gelly queries can filter results using aggregation functions across relationships.
+// hint link: https://docs.gadget.dev/reference/gelly#some-where-boolean-boolean

@@ -4,7 +4,7 @@
 
 // solution:
 view { 
-    count(jellyfishes, where: jellyfishes.age > 3) 
+  count(jellyfishes, where: jellyfishes.age > 3)
 }
 
 // hint: You can add conditions to Gelly aggregations.

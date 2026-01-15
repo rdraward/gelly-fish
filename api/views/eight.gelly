@@ -1,6 +1,6 @@
-// title:
-// backstory: 
-// prompt: 
+// title: You live where?
+// backstory: Little known fact: the jellyfish dream is to settle down on a nice reef with a pink coral fence and a bunch of jelly kids. If you ask politely, jellyfish are happy to share the location of their reef.
+// prompt: Find out where each jellyfish calls home, by querying each jellyfish name, reefAddress, and ocean. Check the schema!
 
 // solution:
 view {
@@ -13,5 +13,5 @@ view {
   }
 }
 
-// hint:
-// hint link:
+// hint: You can query across related models in Gelly!
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#selecting-relationships

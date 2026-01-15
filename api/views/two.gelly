@@ -4,7 +4,7 @@
 
 // solution:
 view { 
-    count(jellyfishes) 
+  count(jellyfishes)
 }
 
 // hint: Gelly also has built-in data aggregation functions.

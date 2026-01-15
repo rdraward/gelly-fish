@@ -1,6 +1,6 @@
-// title:
-// backstory: 
-// prompt: 
+// title: Wait, didn't we do this already?
+// backstory: Now let's get a snap of just the oldies (they don't have much longer and should be memorialized in photos)!
+// prompt: Query for the name and age of all jellyfish older than 3.
 
 // solution:
 view {
@@ -11,5 +11,5 @@ view {
   }
 }
 
-// hint:
-// hint link:
+// hint: You can also apply where conditions to selections, not just aggregations.
+// hint link: https://docs.gadget.dev/reference/gelly#aggregation-functions

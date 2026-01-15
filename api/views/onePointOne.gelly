@@ -1,6 +1,6 @@
 // title: Formal introductions
-// backstory: If you are speaking to a jellyfish in a formal setting, it is best to use their full name, which includes their species as a suffix. Bonus: this cuts down on the confusion between the two "Grapes". At a fancy ball, I am "Elderberry the Immortal". 
-// prompt: Concatenate the jellyfish name and type.
+// backstory: When referring to jellyfish, it is best to use their full name, which includes their species as a suffix. Bonus: this cuts down on the confusion between the two "Grapes". I am "Elderberry the Immortal". 
+// prompt: Concatenate the jellyfish name and type, and return the result as title.
 
 // solution:
 view { 
@@ -9,5 +9,5 @@ view {
   }
 }
 
-// hint: Gelly has built-in functions for manipulating strings.
+// hint: Gelly has built-in functions for manipulating strings, and results can be aliased.
 // hint link: https://docs.gadget.dev/reference/gelly#concat-string-string-delimiter-string-string
