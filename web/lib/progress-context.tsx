@@ -9,6 +9,7 @@ import {
   getCompletedChallenges,
   markChallengeCompleted as saveProgress,
   getStoredSolution,
+  syncLocalStorageToAccount,
 } from "./progress";
 
 interface ProgressContextType {
@@ -56,6 +57,27 @@ export const ProgressProvider = ({
       setIsLoading(false);
     }
   }, [userId]);
+
+  // Sync localStorage to account when user logs in (seamlessly, no UI feedback)
+  // The sync function internally tracks which users have been synced via localStorage,
+  // so this is safe to call on every userId change
+  useEffect(() => {
+    if (!userId) return;
+
+    const syncProgress = async () => {
+      try {
+        const result = await syncLocalStorageToAccount(userId);
+        if (result.synced) {
+          // Reload progress to reflect synced data
+          await loadProgress();
+        }
+      } catch (error) {
+        console.error("Error syncing progress:", error);
+      }
+    };
+
+    syncProgress();
+  }, [userId, loadProgress]);
 
   const markChallengeCompleted = useCallback(
     async (challengeId: string, solution?: string) => {
