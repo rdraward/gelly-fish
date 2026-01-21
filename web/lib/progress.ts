@@ -2,7 +2,6 @@ import { api } from "@/api";
 
 const STORAGE_KEY = "gelly-fish-completed-challenges";
 const SOLUTIONS_STORAGE_KEY = "gelly-fish-challenge-solutions";
-const SYNC_COMPLETED_KEY = "gelly-fish-sync-completed";
 
 /**
  * Get completed challenge IDs from browser storage
@@ -237,85 +236,40 @@ export function getAllSolutionsFromStorage(): Record<string, string> {
 }
 
 /**
- * Check if we've already synced localStorage for this user
- */
-export function hasSyncedForUser(userId: string): boolean {
-  try {
-    const syncedUsers = localStorage.getItem(SYNC_COMPLETED_KEY);
-    if (syncedUsers) {
-      const users = JSON.parse(syncedUsers) as string[];
-      return users.includes(userId);
-    }
-  } catch (error) {
-    console.error("Error checking sync status:", error);
-  }
-  return false;
-}
-
-/**
- * Mark that we've synced localStorage for this user
- */
-export function markSyncedForUser(userId: string): void {
-  try {
-    const syncedUsers = localStorage.getItem(SYNC_COMPLETED_KEY);
-    const users = syncedUsers ? (JSON.parse(syncedUsers) as string[]) : [];
-    if (!users.includes(userId)) {
-      users.push(userId);
-      localStorage.setItem(SYNC_COMPLETED_KEY, JSON.stringify(users));
-    }
-  } catch (error) {
-    console.error("Error marking sync status:", error);
-  }
-}
-
-/**
  * Sync localStorage progress to user account on login
- * Only syncs new completions (doesn't overwrite existing account progress)
+ * Syncs all local completions to the account (upsert handles duplicates safely)
  * Then clears localStorage so account becomes single source of truth
  */
 export async function syncLocalStorageToAccount(userId: string): Promise<{
   synced: boolean;
   count: number;
 }> {
-  // Check if we've already synced for this user
-  if (hasSyncedForUser(userId)) {
-    return { synced: false, count: 0 };
-  }
-
   const localChallenges = getCompletedChallengesFromStorage();
   const localSolutions = getAllSolutionsFromStorage();
 
   // Nothing to sync
   if (localChallenges.size === 0) {
-    markSyncedForUser(userId);
     return { synced: false, count: 0 };
   }
 
-  // Get existing account progress to avoid overwriting
-  const accountChallenges = await getCompletedChallengesFromAPI(userId);
-
   let syncedCount = 0;
 
-  // Sync each local challenge that isn't already in the account
+  // Sync each local challenge to the account
+  // upsert will safely handle duplicates without overwriting existing solutions
   for (const challengeId of localChallenges) {
-    if (!accountChallenges.has(challengeId)) {
-      const solution = localSolutions[challengeId];
-      if (solution) {
-        try {
-          await saveProgressToAPI(challengeId, userId, solution);
-          syncedCount++;
-        } catch (error) {
-          console.error(`Error syncing challenge ${challengeId}:`, error);
-        }
+    const solution = localSolutions[challengeId];
+    if (solution) {
+      try {
+        await saveProgressToAPI(challengeId, userId, solution);
+        syncedCount++;
+      } catch (error) {
+        console.error(`Error syncing challenge ${challengeId}:`, error);
       }
     }
   }
 
   // Clear localStorage - account is now the source of truth
   clearLocalStorage();
-
-  // Mark that we've synced for this user
-  markSyncedForUser(userId);
 
   return { synced: syncedCount > 0, count: syncedCount };
 }
