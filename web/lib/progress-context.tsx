@@ -7,6 +7,7 @@ import {
 } from "react";
 import {
   getCompletedChallenges,
+  getCompletedChallengesFromStorage,
   markChallengeCompleted as saveProgress,
   getStoredSolution,
   syncLocalStorageToAccount,
@@ -41,8 +42,14 @@ export const ProgressProvider = ({
   children,
   userId,
 }: ProgressProviderProps) => {
+  // Initialize with localStorage data synchronously to prevent flash
+  // For signed-in users, this will be replaced with API data after loading
   const [completedChallenges, setCompletedChallenges] = useState<Set<string>>(
-    new Set()
+    () => {
+      // Only run on client side
+      if (typeof window === "undefined") return new Set<string>();
+      return getCompletedChallengesFromStorage();
+    }
   );
   const [isLoading, setIsLoading] = useState(true);
 
