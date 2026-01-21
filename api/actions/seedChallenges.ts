@@ -113,6 +113,6 @@ export const run: ActionRun = async ({ logger, api }) => {
     success: true,
     parsed: challenges.length,
     created: createdChallenges.length,
-    challenges: createdChallenges.map((c: { id: string; title: string }) => ({ id: c.id, title: c.title })),
+    challenges: createdChallenges.map((c) => ({ id: c.id, title: c.title })),
   };
 };
