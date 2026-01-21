@@ -152,7 +152,7 @@ export function TutorialView({
     }
   }, [showSolutionFlash]);
 
-  // Reset completion tracking and load stored solution when challenge changes
+  // Reset completion tracking and state when challenge changes
   useEffect(() => {
     hasTrackedCompletion.current = false;
     hasLoadedSolution.current = false;
@@ -161,9 +161,13 @@ export function TutorialView({
     setIsComplete(false);
     // Reset editor to empty
     setGellyCode("");
+  }, [challenge.id]);
 
-    // Load stored solution if challenge was previously completed
-    if (wasPreviouslyCompleted) {
+  // Load stored solution if challenge was previously completed
+  // This is separate from the reset effect to avoid resetting isComplete
+  // when wasPreviouslyCompleted changes (which happens after successful completion)
+  useEffect(() => {
+    if (wasPreviouslyCompleted && !hasLoadedSolution.current) {
       getSolution(challenge.id)
         .then((storedSolution) => {
           if (storedSolution && !hasLoadedSolution.current) {

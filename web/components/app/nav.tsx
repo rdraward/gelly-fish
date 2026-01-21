@@ -113,7 +113,7 @@ export const Navigation = ({
   const location = useLocation();
   const navigate = useNavigate();
   const matches = useMatches();
-  const { completedChallenges } = useProgress();
+  const { completedChallenges, isLoading } = useProgress();
 
   // Get challenge data from the challenge route if we're on a challenge page
   const challengeMatch = matches.find((match: any) =>
@@ -156,7 +156,9 @@ export const Navigation = ({
           <GellyLogo height={36} />
         </Link>
         {isChallengePage && (
-          <nav className="flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1">
+          <nav
+            className={`flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1 transition-opacity duration-200 ${isLoading ? "opacity-50" : "opacity-100"}`}
+          >
             {levels.map((lvl) => {
               const isActive = lvl.id === currentChallengeId;
               const isCompleted = completedChallenges.has(lvl.id);
