@@ -18,7 +18,7 @@ export function TargetOutputPanel({
       <CardHeader className="py-2 pb-1.5 border-b">
         <CardTitle className="text-lg font-bold">Target output</CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 flex pb-2">
+      <CardContent className="flex-1 flex pb-2 overflow-hidden min-h-0">
         {!showTargetOutput ? (
           <Button
             onClick={onReveal}
@@ -30,8 +30,8 @@ export function TargetOutputPanel({
             Reveal expected output
           </Button>
         ) : (
-          <div className="h-full w-full overflow-hidden">
-            <pre className="h-full w-full text-sm font-mono bg-muted p-4 rounded-md whitespace-pre-wrap overflow-auto">
+          <div className="h-full w-full overflow-auto min-h-0">
+            <pre className="text-sm font-mono bg-muted p-4 rounded-md whitespace-pre-wrap">
               {expectedOutput}
             </pre>
           </div>

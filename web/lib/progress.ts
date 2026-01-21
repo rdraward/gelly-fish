@@ -1,7 +1,7 @@
 import { api } from "@/api";
 
-const STORAGE_KEY = "gelly-wiggle-completed-challenges";
-const SOLUTIONS_STORAGE_KEY = "gelly-wiggle-challenge-solutions";
+const STORAGE_KEY = "gelly-fish-completed-challenges";
+const SOLUTIONS_STORAGE_KEY = "gelly-fish-challenge-solutions";
 
 /**
  * Get completed challenge IDs from browser storage

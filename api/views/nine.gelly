@@ -1,18 +1,15 @@
-// title: Reef-ers only
-// backstory: Some jellyfish prefer the open sea and don't settle down. We can let them be the free-spritied hippies that they are, let's exclude them from our list of jellyfish who live in reefs.
-// prompt: Find the names, reef addresses, and ocean of jellyfish who have a home.
+// title: Wait, didn't we do this already?
+// backstory: Now let's get a snap of just the oldies (they don't have much longer and should be memorialized in photos)!
+// prompt: Query for the name and age of all jellyfish older than 3.
 
 // solution:
 view {
   jellyfishes {
     name
-    homes {
-      reefAddress
-      ocean
-    }
-    [where count(homes) > 1] 
+    age
+    [where age > 3]
   }
 }
 
-// hint: Relational commands can also work across relationships.
-// hint link: https://docs.gadget.dev/guides/data-access/gelly#where
+// hint: You can also apply where conditions to selections, not just aggregations.
+// hint link: https://docs.gadget.dev/reference/gelly#aggregation-functions

@@ -1,16 +1,19 @@
-// title: Jaws 5: Jawless
-// backstory: Man eating jellyfish are the scourge of the sea. They're coming. We need to know how their average size so we know what we're up against. Let's see how the size of maneaters compares to normal, cute and cuddly jellyfish.
-// prompt: Query the average length and weight of two groups of jellyfish, denoted by isPeopleEater. 
+// title: Yum yum in the jellyfish tum'
+// backstory: Jellyfish are voracious eaters, shying away from plants and focusing on hitting their protein goals with a carnivore diet. Scientists have yet to determine whether this is driven by uncontrollable bloodlust or the relentless pursit of gains.
+// prompt: Find out what each jellyfish likes to eat. List the jellyfish name, and the names and categories of their diet.
 
 // solution:
 view {
   jellyfishes {
-    avg(length)
-    avg(weight)
-    isPeopleEater: some(foodChains.food.name == "people")
-    [group by isPeopleEater] 
+    name
+    foodChains {
+      food {
+        name
+        category
+      }
+    }
   }
 }
 
-// hint: You can use group by to group query results into buckets, and aliased aggregation results can be used as buckets.
-// hint link: https://docs.gadget.dev/guides/data-access/gelly#group-by
+// hint: Gelly queries can cross multiple nested relationships, like has-many-through (many-to-many) relationships.
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#selecting-relationships

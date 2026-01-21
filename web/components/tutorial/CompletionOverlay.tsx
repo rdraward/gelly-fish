@@ -2,9 +2,9 @@ import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-interface TutorialLevelLink {
-  id: string;
-  number: number;
+export interface TutorialLevelLink {
+  id: string; // Internal Gadget ID for progress tracking
+  challengeId: number; // Numeric ID for routing
 }
 
 interface CompletionOverlayProps {
@@ -20,8 +20,9 @@ export function CompletionOverlay({
 }: CompletionOverlayProps) {
   if (!isComplete) return null;
 
+  // Find the next challenge by looking for challengeId = current + 1
   const nextChallenge = levels.find(
-    (level) => level.number === challengeNumber + 1
+    (level) => level.challengeId === challengeNumber + 1
   );
 
   if (!nextChallenge) return null;
@@ -29,7 +30,7 @@ export function CompletionOverlay({
   return (
     <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none">
       <Link
-        to={`/challenge/${nextChallenge.id}`}
+        to={`/challenge/${nextChallenge.challengeId}`}
         className="pointer-events-auto"
       >
         <Button

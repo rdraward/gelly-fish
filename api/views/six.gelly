@@ -1,15 +1,15 @@
-// title: Long jellies only
-// backstory: Taking a picture of only 3 jellies worked, but it turned out you just got the first 3 jellyfish in line. They're all different lengths and don't fit in the frame! Try taking a picture of just the longest jellyfish instead.
-// prompt: Query for the name and length of jellyfish, and only return the 3 with the greatest length.
+// title:  Get your jellies in a row
+// backstory: It can be tough to wrangle jellyfish, them being gelatinous beings and all. But when it's time for a group picture, it's important to know who is the longest so they can be placed in the back.
+// prompt: Sort the jellyfish by length, displaying both their names and length.
 
 // solution:
 view {
   jellyfishes {
     name
     length
-    [order by length desc limit 3]
+    [order by length]
   }
 }
 
-// hint: You can combine relational commands in Gelly to both filter and sort results.
-// hint link: https://docs.gadget.dev/guides/data-access/gelly#relational-commands
+// hint: Gelly has relational commands that might help with sorting.
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#order-by

@@ -1,14 +1,11 @@
-// title: Whoa nelly, not too much jelly
-// backstory: Turns out we can't get everyone in the group photo. These jellyfish just won't stay still! Try taking a picture with just 3 of the jellies.
-// prompt: Query for the name of 3 jellyfish.
+// title: The old jelly and the sea
+// backstory: Some species of jellyfish only live for months, others can live FOREVER. Try counting them again, but this time only the senior jellies.
+// prompt: Count all of the jellyfish who are older than 3.
 
 // solution:
-view {
-  jellyfishes {
-    name
-    [limit 3]
-  }
+view { 
+  count(jellyfishes, where: jellyfishes.age > 3)
 }
 
-// hint: Gelly has commands for limiting the number of returned results.
-// hint link: https://docs.gadget.dev/guides/data-access/gelly#limit
+// hint: You can add conditions to Gelly aggregations.
+// hint link: https://docs.gadget.dev/reference/gelly#the-where-argument

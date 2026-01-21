@@ -1,15 +1,14 @@
-// title: Wait, didn't we do this already?
-// backstory: Now let's get a snap of just the oldies (they don't have much longer and should be memorialized in photos)!
-// prompt: Query for the name and age of all jellyfish older than 3.
+// title: Whoa nelly, not too much jelly
+// backstory: Turns out we can't get everyone in the group photo. These jellyfish just won't stay still! Try taking a picture with just 3 of the jellies.
+// prompt: Query for the name of 3 jellyfish.
 
 // solution:
 view {
   jellyfishes {
     name
-    age
-    [where age > 3]
+    [limit 3]
   }
 }
 
-// hint: You can also apply where conditions to selections, not just aggregations.
-// hint link: https://docs.gadget.dev/reference/gelly#aggregation-functions
+// hint: Gelly has commands for limiting the number of returned results.
+// hint link: https://docs.gadget.dev/guides/data-access/gelly#limit

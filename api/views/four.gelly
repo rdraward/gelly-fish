@@ -1,15 +1,11 @@
-// title:  Get your jellies in a row
-// backstory: It can be tough to wrangle jellyfish, them being gelatinous beings and all. But when it's time for a group picture, it's important to know who is the longest so they can be placed in the back.
-// prompt: Sort the jellyfish by length, displaying both their names and length.
+// title: Seaside census
+// backstory: It can be tough to get an exact count of jellyfish, they travel in single file to hide their numbers. Maybe there's another way you can count all the jellies?
+// prompt: Get a total count of the number of jellyfish records.
 
 // solution:
-view {
-  jellyfishes {
-    name
-    length
-    [order by length]
-  }
+view { 
+  count(jellyfishes)
 }
 
-// hint: Gelly has relational commands that might help with sorting.
-// hint link: https://docs.gadget.dev/guides/data-access/gelly#order-by
+// hint: Gelly also has built-in data aggregation functions.
+// hint link: https://docs.gadget.dev/reference/gelly#count-value-any-where-boolean-integer

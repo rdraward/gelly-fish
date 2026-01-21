@@ -1,19 +1,17 @@
-// title: Yum yum in the jellyfish tum'
-// backstory: Jellyfish are voracious eaters, shying away from plants and focusing on hitting their protein goals with a carnivore diet. Scientists have yet to determine whether this is driven by uncontrollable bloodlust or the relentless pursit of gains.
-// prompt: Find out what each jellyfish likes to eat. List the jellyfish name, and the names and categories of their diet.
+// title: You live where?
+// backstory: Little known fact: the jellyfish dream is to settle down on a nice reef with a pink coral fence and a bunch of jelly kids. If you ask politely, jellyfish are happy to share the location of their reef.
+// prompt: Find out where each jellyfish calls home, by querying each jellyfish name, reefAddress, and ocean. Check the schema!
 
 // solution:
 view {
   jellyfishes {
     name
-    foodChains {
-      food {
-        name
-        category
-      }
+    homes {
+      reefAddress
+      ocean
     }
   }
 }
 
-// hint: Gelly queries can cross multiple nested relationships, like has-many-through (many-to-many) relationships.
+// hint: You can query across related models in Gelly!
 // hint link: https://docs.gadget.dev/guides/data-access/gelly#selecting-relationships

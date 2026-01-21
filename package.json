@@ -1,14 +1,14 @@
 {
-  "name": "gelly-wiggle",
+  "name": "gelly-fish",
   "version": "0.1.0",
-  "description": "Internal package for Gadget app gelly-wiggle (Development environment)",
+  "description": "Internal package for Gadget app gelly-fish (Development environment)",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production react-router build"
   },
   "dependencies": {
-    "@gadget-client/gelly-wiggle": "link:.gadget/client",
+    "@gadget-client/gelly-fish": "link:.gadget/client",
     "@gadgetinc/react": "^0.24.1",
     "@mdxeditor/editor": "^3.8.0",
     "@radix-ui/react-accordion": "^1.2.3",

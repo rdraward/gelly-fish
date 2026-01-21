@@ -1,6 +1,6 @@
 import type { GadgetModel } from "gadget-server";
 
-// This file describes the schema for the "challenge" model, go to https://gelly-wiggle.gadget.app/edit to view/edit your model in Gadget
+// This file describes the schema for the "challenge" model, go to https://gelly-fish.gadget.app/edit to view/edit your model in Gadget
 // For more information on how to update this file http://docs.gadget.dev
 
 export const schema: GadgetModel = {
@@ -14,11 +14,15 @@ export const schema: GadgetModel = {
       filterIndex: false,
       searchIndex: false,
     },
-    expectedOutput: {
-      type: "string",
-      validations: { required: true },
-      storageKey: "AKsD19zOY5l8",
-      filterIndex: false,
+    challengeId: {
+      type: "number",
+      decimals: 0,
+      validations: {
+        required: true,
+        numberRange: { min: 1, max: null },
+        unique: true,
+      },
+      storageKey: "S8Jlgq5fRgVm",
       searchIndex: false,
     },
     hint: {
@@ -65,6 +69,13 @@ export const schema: GadgetModel = {
         belongsToSiblingField: "user",
       },
       storageKey: "3rIZ6JBBaxK_",
+    },
+    viewName: {
+      type: "string",
+      validations: { required: true },
+      storageKey: "viewName_field",
+      filterIndex: false,
+      searchIndex: false,
     },
   },
   searchIndex: false,

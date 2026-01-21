@@ -4,7 +4,7 @@ import { InstructionsPanel } from "./InstructionsPanel";
 import { TargetOutputPanel } from "./TargetOutputPanel";
 import { GellyEditorPanel } from "./GellyEditorPanel";
 import { QueryOutputPanel } from "./QueryOutputPanel";
-import { CompletionOverlay } from "./CompletionOverlay";
+import { CompletionOverlay, type TutorialLevelLink } from "./CompletionOverlay";
 import { SchemaModal } from "./SchemaModal";
 import {
   normalizeForCompare,
@@ -15,6 +15,7 @@ import { useProgress } from "@/lib/progress-context";
 
 interface Challenge {
   id: string;
+  challengeId: number;
   title: string;
   prompt: string;
   backstory: string;
@@ -22,11 +23,6 @@ interface Challenge {
   hintLink: string;
   solution: string;
   expectedOutput: string;
-}
-
-interface TutorialLevelLink {
-  id: string;
-  number: number;
 }
 
 interface TutorialViewProps {

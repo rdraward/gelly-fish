@@ -94,7 +94,7 @@ body,
   --popover: hsl(260 25% 10%);
   --popover-foreground: hsl(260 15% 95%);
   --primary: hsl(260 55% 65%);
-  --primary-foreground: hsl(260 30% 8%);
+  --primary-foreground: hsl(0 0% 100%);
   --secondary: hsl(260 30% 18%);
   --secondary-foreground: hsl(260 15% 95%);
   --muted: hsl(260 30% 18%);
@@ -126,6 +126,56 @@ body,
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Custom scrollbar styling */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(260 54% 60% / 0.4) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: hsl(260 54% 60% / 0.4);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(260 54% 60% / 0.6);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Dark mode scrollbar */
+  .dark * {
+    scrollbar-color: hsl(260 55% 65% / 0.4) transparent;
+  }
+
+  .dark *::-webkit-scrollbar-thumb {
+    background: hsl(260 55% 65% / 0.4);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .dark *::-webkit-scrollbar-thumb:hover {
+    background: hsl(260 55% 65% / 0.6);
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
 }
 
