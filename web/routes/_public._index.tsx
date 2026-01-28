@@ -68,7 +68,7 @@ export default function () {
   );
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden h-full">
       {/* Background Carousel */}
       <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
         {Array.from({ length: 12 }).map((_, rowIndex) => {
@@ -108,18 +108,18 @@ export default function () {
       </div>
 
       {/* Hero Section */}
-      <section className="relative text-white/92 flex items-center justify-center min-h-[100dvh]">
+      <section className="relative text-white/92 flex items-center justify-center h-full">
         <div
-          className={`gelly-logo fixed w-[480px] h-[480px] left-1/2 top-1/2 opacity-100 z-0 origin-center ${phase === "pressed" ? "gelly-logo--expanding z-[9999]" : ""}`}
+          className={`gelly-logo fixed w-[min(65vw,480px)] h-[min(65vw,480px)] left-1/2 top-1/2 opacity-100 z-0 origin-center ${phase === "pressed" ? "gelly-logo--expanding z-[9999]" : ""}`}
           aria-hidden="true"
         >
           {jellySvgLogo}
         </div>
-        <div className="gelly-hero relative z-10 mx-auto max-w-4xl text-center flex flex-col gap-6 min-h-[100dvh] justify-center">
-          <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight text-center">
+        <div className="gelly-hero relative z-10 mx-auto max-w-4xl w-full text-center flex flex-col gap-4 sm:gap-6 h-full justify-center px-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-center">
             gelly.fish like a pro
           </h1>
-          <p className="text-white/82 text-xl md:text-2xl max-w-2xl mx-auto [text-shadow:0_10px_30px_rgba(0,0,0,0.35)]">
+          <p className="text-white/82 text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto [text-shadow:0_10px_30px_rgba(0,0,0,0.35)]">
             <span className="font-semibold">Learn Gelly</span> through
             interactive tutorials
           </p>
@@ -130,7 +130,7 @@ export default function () {
             >
               <button
                 type="button"
-                className={`gelly-cta relative inline-flex items-center justify-center gap-2 py-[0.9rem] px-5 rounded-2xl text-[1.125rem] font-bold tracking-[0.01em] select-none -translate-y-0.5 ${phase === "pressed" ? "gelly-cta--pressed" : ""}`}
+                className={`gelly-cta relative inline-flex items-center justify-center gap-2 py-3 sm:py-[0.9rem] px-4 sm:px-5 rounded-2xl text-sm sm:text-[1.125rem] font-bold tracking-[0.01em] select-none -translate-y-0.5 ${phase === "pressed" ? "gelly-cta--pressed" : ""}`}
                 onClick={() => setPhase("pressed")}
                 aria-label="Get wigglin' (start tutorial)"
                 disabled={phase === "pressed"}

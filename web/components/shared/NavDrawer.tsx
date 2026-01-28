@@ -11,7 +11,7 @@ export const NavDrawer = ({ children }: { children: (props: { close: () => void 
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Menu className="h-6 w-6" />
+          <Menu className="h-6 w-6 text-white" />
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-[300px] sm:w-[400px] transition-transform duration-300">

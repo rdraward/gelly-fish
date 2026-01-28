@@ -57,8 +57,8 @@ export default function TutorialChallenge({ loaderData }: Route.ComponentProps) 
   const { challenge, expectedOutput, challengeNumber, totalChallenges, levels, user } = loaderData;
 
   return (
-    <div className="h-full overflow-hidden flex flex-col">
-      <div className="flex-1 overflow-hidden">
+    <div className="h-full flex flex-col">
+      <div className="flex-1 min-h-0">
         <TutorialView
           key={challenge.id}
           challenge={{

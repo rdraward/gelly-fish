@@ -194,7 +194,7 @@ export function SchemaModal({
           These are the data models and fields you can read using Gelly.
         </p>
 
-        <div className="mt-4 h-[550px] bg-background/50 rounded-lg border border-primary/20 p-2">
+        <div className="mt-4 h-[60vh] max-h-[550px] overflow-y-auto bg-background/50 rounded-lg border border-primary/20 p-2">
           {loading && (
             <div className="flex items-center justify-center h-full gap-8">
               {modelNames.map((name, i) => (
