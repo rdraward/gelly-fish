@@ -95,7 +95,7 @@ export function GellyEditorPanel({
           <Button
             onClick={onRun}
             disabled={isRunning || !gellyCode.trim()}
-            className="flex-1 min-w-[120px]"
+            className="flex-1 md:flex-[3] min-w-[120px]"
           >
             <Play className="mr-2 h-4 w-4" />
             {isRunning ? "Running..." : "Run"}
@@ -103,7 +103,7 @@ export function GellyEditorPanel({
           <Button
             variant="outline"
             onClick={onShowSchema}
-            className="min-w-[125px]"
+            className="flex-1 md:flex-1 min-w-[120px]"
           >
             <Database className="mr-2 h-4 w-4" />
             Schema
@@ -111,7 +111,7 @@ export function GellyEditorPanel({
           <Button
             variant="outline"
             onClick={showHint ? onHideHint : onShowHint}
-            className="min-w-[125px]"
+            className="flex-1 md:flex-1 min-w-[120px]"
           >
             <Lightbulb className="mr-2 h-4 w-4" />
             {showHint ? "Hide Hint" : "Hint"}
@@ -119,7 +119,7 @@ export function GellyEditorPanel({
           <Button
             variant="outline"
             onClick={onShowSolution}
-            className="min-w-[125px]"
+            className="flex-1 md:flex-1 min-w-[120px]"
           >
             <Code2 className="mr-2 h-4 w-4" />
             Solution

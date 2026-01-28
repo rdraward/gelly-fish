@@ -95,7 +95,7 @@ export default function ({ loaderData }: Route.ComponentProps) {
           {isHome ? (
             <Outlet context={context} />
           ) : (
-            <div className="mx-auto px-2 h-full py-0">
+            <div className="mx-auto px-2 h-full py-0 min-h-0">
               <Outlet context={context} />
             </div>
           )}

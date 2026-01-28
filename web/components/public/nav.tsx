@@ -74,7 +74,12 @@ export const Navigation = () => {
 
   return (
     <div className="flex items-center gap-2 min-w-0 flex-1">
-      <MobileNav />
+      <MobileNav
+        levels={isChallengePage ? levels : undefined}
+        currentChallengeId={currentChallengeId}
+        completedChallenges={completedChallenges}
+        isLoading={isLoading}
+      />
       <div className="flex-shrink-0">
         <Link to="/" className="flex items-center" aria-label="Home">
           <GellyLogo height={32} className="block" />
@@ -82,7 +87,7 @@ export const Navigation = () => {
       </div>
       {isChallengePage && (
         <nav
-          className={`flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1 ml-4 transition-opacity duration-200 ${isLoading ? "opacity-50" : "opacity-100"}`}
+          className={`hidden md:flex items-center gap-2 overflow-x-auto whitespace-nowrap min-w-0 flex-1 ml-4 transition-opacity duration-200 ${isLoading ? "opacity-50" : "opacity-100"}`}
         >
           {levels.map((lvl) => {
             const isActive = lvl.id === currentChallengeId;
@@ -110,12 +115,54 @@ export const Navigation = () => {
 };
 
 // Mobile hamburger menu, uses Sheet for slide-out drawer
-const MobileNav = () => {
+interface MobileNavProps {
+  levels?: Array<{ id: string; challengeId: number }>;
+  currentChallengeId?: string;
+  completedChallenges?: Set<string>;
+  isLoading?: boolean;
+}
+
+const MobileNav = ({
+  levels,
+  currentChallengeId,
+  completedChallenges = new Set(),
+  isLoading = false,
+}: MobileNavProps) => {
+  const hasContent =
+    (levels && levels.length > 0) || navigationItems.length > 0;
+  if (!hasContent) return null;
+
   return (
     <div className="md:hidden">
       <NavDrawer>
         {({ close }) => (
           <nav className="flex flex-col gap-4 px-6 pt-16 pb-8">
+            {levels && levels.length > 0 && (
+              <div>
+                <p className="text-sm font-medium mb-3">Challenges</p>
+                <div
+                  className={`flex flex-col gap-1 transition-opacity duration-200 ${isLoading ? "opacity-50" : ""}`}
+                >
+                  {levels.map((lvl) => (
+                    <Link
+                      key={lvl.id}
+                      to={`/challenge/${lvl.challengeId}`}
+                      onClick={close}
+                      className="flex items-center gap-3 py-1 rounded-md hover:bg-muted/50 transition-colors"
+                    >
+                      <NumberedCircle
+                        number={lvl.challengeId}
+                        isActive={lvl.id === currentChallengeId}
+                        isCompleted={completedChallenges.has(lvl.id)}
+                      />
+                      <span className={`text-sm ${lvl.id === currentChallengeId ? "font-semibold text-primary" : "text-muted-foreground"}`}>
+                        Challenge {lvl.challengeId}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
             {navigationItems.map((item) =>
               item.type === "section" ? (
                 <div key={item.title}>

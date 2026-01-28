@@ -265,9 +265,10 @@ export function SchemaDiagram({ schemas, modelNames }: SchemaDiagramProps) {
       nodesDraggable={false}
       nodesConnectable={false}
       elementsSelectable={false}
-      panOnDrag={false}
+      panOnDrag={true}
+      panOnScroll={false}
       zoomOnScroll={false}
-      zoomOnPinch={false}
+      zoomOnPinch={true}
       zoomOnDoubleClick={false}
       preventScrolling={false}
       proOptions={{ hideAttribution: true }}
