@@ -21,12 +21,34 @@ export const links = () => [
     type: "image/svg+xml",
     href: "/favicon.svg",
   },
+  {
+    rel: "apple-touch-icon",
+    href: "/gellyfish-superiority.png",
+  },
 ];
 
 export const meta = () => [
   { charset: "utf-8" },
   { name: "viewport", content: "width=device-width, initial-scale=1" },
-  { title: "gelly.fish - Interactive Gelly tutorial" },
+  { title: "gelly.fish - Interactive Gelly Tutorial" },
+  { name: "description", content: "Learn Gelly through interactive tutorials" },
+  { name: "keywords", content: "gelly, tutorial, learn gelly, interactive tutorial, gelly.fish" },
+  { name: "theme-color", content: "#9260d2" },
+
+  // Open Graph tags for social sharing
+  { property: "og:title", content: "gelly.fish - Interactive Gelly Tutorial" },
+  { property: "og:description", content: "Learn Gelly through interactive tutorials" },
+  { property: "og:type", content: "website" },
+  { property: "og:image", content: "/gellyfish-superiority.png" },
+  { property: "og:image:width", content: "1200" },
+  { property: "og:image:height", content: "630" },
+  { property: "og:url", content: "https://gelly.fish" },
+
+  // Twitter Card tags
+  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:title", content: "gelly.fish - Interactive Gelly Tutorial" },
+  { name: "twitter:description", content: "Learn Gelly through interactive tutorials" },
+  { name: "twitter:image", content: "/gellyfish-superiority.png" },
 ];
 
 export type RootOutletContext = {
