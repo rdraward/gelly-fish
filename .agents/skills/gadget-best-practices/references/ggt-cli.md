@@ -1,5 +1,9 @@
 # ggt CLI Commands
 
+**📖 Full docs:**
+- [ggt reference](https://docs.gadget.dev/reference/ggt.md)
+- [CLI](https://docs.gadget.dev/guides/development-tools/cli.md)
+
 The `ggt` CLI is Gadget's command-line interface for local development and code generation.
 
 ## Installation
@@ -95,7 +99,13 @@ ggt add route GET-api/users
 
 `ggt add` automatically syncs before making changes. If conflicts exist, you'll be prompted to resolve them.
 
-To manually sync:
+**When `ggt dev` is running:**
+- Changes are automatically synced in both directions
+- ✅ **DO NOT** use `ggt push` or `ggt pull` - changes sync automatically
+- File edits are immediately reflected in your Gadget environment
+- Changes in the Gadget editor are immediately pulled to local files
+
+**When `ggt dev` is NOT running:**
 ```bash
 ggt push   # Push local changes to Gadget
 ggt pull   # Pull Gadget changes to local
@@ -104,4 +114,4 @@ ggt status # Check sync status
 
 ## Reference
 
-Full documentation: [https://docs.gadget.dev/reference/ggt](https://docs.gadget.dev/reference/ggt)
+Full documentation: [https://docs.gadget.dev/reference/ggt](https://docs.gadget.dev/reference/ggt.md)

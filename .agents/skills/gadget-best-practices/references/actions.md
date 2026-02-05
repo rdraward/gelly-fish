@@ -1,5 +1,7 @@
 # Actions
 
+**📖 Full docs:** [docs.gadget.dev/guides/actions](https://docs.gadget.dev/guides/actions.md)
+
 Actions are server-side functions that run business logic and write data. They auto-generate GraphQL mutations, enforce permissions, and are transactional by default.
 
 ## Two Types
@@ -78,16 +80,21 @@ export const onSuccess = async ({ api, record }) => {
 
 ### Input Parameters
 
+**IMPORTANT:** Always define custom parameters using `export const params = { ... }`. Never use `as any` type casting to bypass TypeScript errors.
+
 ```javascript
 export const params = {
-  notifySubscribers: { type: "boolean", default: true }
+  notifySubscribers: { type: "boolean", default: true },
+  targets: { type: "json" },
+  count: { type: "number", default: 5 },
 };
 
 export const run = async ({ params, record }) => {
   record.publishedAt = new Date();
   await record.save();
 
-  if (params.notifySubscribers) {
+  const { notifySubscribers, targets, count } = params;
+  if (notifySubscribers) {
     // Notify...
   }
 };
@@ -286,3 +293,9 @@ export const run = async ({ logger, params }) => {
 - [background-jobs.md](background-jobs.md) - Enqueueing patterns
 - [access-control.md](access-control.md) - Permissions
 - [shopify-integration.md](shopify-integration.md) - Shopify patterns
+
+**📖 More info:**
+- [Action types](https://docs.gadget.dev/guides/actions/types-of-actions.md)
+- [Writing actions](https://docs.gadget.dev/guides/actions/writing-actions.md)
+- [Background actions](https://docs.gadget.dev/guides/actions/background.md)
+- [Action triggers](https://docs.gadget.dev/guides/actions/triggers.md)
